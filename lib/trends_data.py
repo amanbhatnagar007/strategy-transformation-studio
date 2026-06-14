@@ -1,0 +1,38 @@
+"""Curated 2025 MedTech trends (Aman's POV) — static, not generated, to avoid fabrication."""
+
+TRENDS = [
+    {"theme": "Business model", "title": "Hardware → outcomes & recurring revenue",
+     "what": "MedTechs shift from capital, volume-driven sales to subscription, Solution-as-a-Service and pay-per-use.",
+     "implication": "Re-architect pricing, revenue recognition and salesforce incentives around recurring value.",
+     "impact": 5, "horizon": "Now"},
+    {"theme": "AI & data", "title": "AI-enabled & connected devices",
+     "what": "Embedded AI and connectivity turn devices into data platforms with clinical decision support.",
+     "implication": "Win on the data/service layer, not just the device; build evidence and regulatory pathways.",
+     "impact": 5, "horizon": "Now"},
+    {"theme": "Commercial", "title": "Bundled service + data offerings",
+     "what": "Buyers want outcomes, not boxes — service, analytics and consumables bundled into the deal.",
+     "implication": "Move to solution selling and key-account models; quantify and contract on value.",
+     "impact": 4, "horizon": "Now"},
+    {"theme": "Payer / access", "title": "Payer & PBM consolidation",
+     "what": "Continued consolidation reshapes access, formulary and class-of-trade economics.",
+     "implication": "Sharpen channel and pricing strategy; model switching and class-of-trade advantages.",
+     "impact": 4, "horizon": "12–24m"},
+    {"theme": "Care model", "title": "Value-based & decentralized care",
+     "what": "Care moves home and ambulatory; reimbursement tilts toward outcomes and risk-sharing.",
+     "implication": "Design for remote monitoring, adherence and total-cost-of-care narratives.",
+     "impact": 4, "horizon": "12–24m"},
+    {"theme": "Operations", "title": "Resilient, digital supply chains",
+     "what": "Post-disruption, supply resilience and digital traceability become commercial differentiators.",
+     "implication": "Invest in visibility and dual-sourcing; turn reliability into a selling point.",
+     "impact": 3, "horizon": "12–24m"},
+    {"theme": "AI & data", "title": "Generative AI in commercial & R&D",
+     "what": "GenAI accelerates content, field enablement, evidence synthesis and engineering.",
+     "implication": "Pilot with governance; redesign workflows rather than bolt AI onto old ones.",
+     "impact": 4, "horizon": "Now"},
+    {"theme": "Growth", "title": "Emerging-markets & inside sales",
+     "what": "High-growth markets and inside/digital sales unlock reach at lower cost to serve.",
+     "implication": "Build hybrid coverage models; localize the value proposition and channel mix.",
+     "impact": 3, "horizon": "24m+"},
+]
+
+THEMES = sorted({t["theme"] for t in TRENDS})
