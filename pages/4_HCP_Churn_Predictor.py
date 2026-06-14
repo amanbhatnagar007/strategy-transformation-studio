@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 from lib.theme import page_header, glass
 from lib.profile import PROFILE
 from lib.churn_model import train, predict_one, at_risk_table, FEATURES, LABELS
+from lib.uploads import ColumnSchema, Col, data_input
 
 st.set_page_config(page_title="HCP Churn Predictor", page_icon="🩺", layout="wide")
 page_header("🩺 HCP Churn Predictor",
@@ -22,7 +23,7 @@ k1.markdown(f'<div class="glass metric"><div class="v">{auc}</div><div class="l"
 k2.markdown(f'<div class="glass metric"><div class="v">{len(df):,}</div><div class="l">HCPs in dataset</div></div>', unsafe_allow_html=True)
 k3.markdown(f'<div class="glass metric"><div class="v">{df.churned.mean()*100:.0f}%</div><div class="l">Base churn rate</div></div>', unsafe_allow_html=True)
 
-t1, t2, t3 = st.tabs(["🎛️ Score an HCP", "📊 What drives churn", "🚨 At-risk list"])
+t1, tU, t2, t3 = st.tabs(["🎛️ Score an HCP", "📤 Score your file", "📊 What drives churn", "🚨 At-risk list"])
 
 with t1:
     st.markdown("#### Enter an HCP's profile to get a churn probability")
@@ -46,6 +47,31 @@ with t1:
                 f'<div style="color:#9AA6CC">churn probability · risk tier {tier}</div>'
                 f'<div style="color:#c4b5ff;margin-top:.5rem;font-size:.9rem">Recommended action: {action}</div></div>',
                 unsafe_allow_html=True)
+
+with tU:
+    st.markdown("#### Upload your HCP panel to score every prescriber")
+    st.caption("Use the template (or your own export with the same columns). The model only scores the rows "
+               "you provide — it never invents HCPs.")
+    schema = ColumnSchema([Col(f, "num", LABELS[f], "0") for f in FEATURES])
+    sample = df[FEATURES].head(20).to_dict("records")
+    user_df = data_input(schema, sample, demo_label="Use demo panel", key="hcp")
+    if user_df is not None and not user_df.empty:
+        proba = model.predict_proba(user_df[FEATURES])[:, 1]
+        scored = user_df.copy()
+        scored.insert(0, "HCP", [f"Row {i+1}" for i in range(len(scored))])
+        scored["Churn risk %"] = (proba * 100).round(1)
+        scored["Tier"] = pd.cut(proba, [-0.01, 0.3, 0.6, 1.01],
+                                labels=["🟢 Low", "🟠 Medium", "🔴 High"])
+        hi = int((proba > 0.6).sum())
+        a, b, cc = st.columns(3)
+        a.markdown(f'<div class="glass metric"><div class="v">{len(scored)}</div><div class="l">HCPs scored</div></div>', unsafe_allow_html=True)
+        b.markdown(f'<div class="glass metric"><div class="v">{hi}</div><div class="l">High risk</div></div>', unsafe_allow_html=True)
+        cc.markdown(f'<div class="glass metric"><div class="v">{proba.mean()*100:.0f}%</div><div class="l">Avg risk</div></div>', unsafe_allow_html=True)
+        out = scored.sort_values("Churn risk %", ascending=False)
+        st.dataframe(out[["HCP", "Churn risk %", "Tier"] + FEATURES].rename(columns=LABELS),
+                     use_container_width=True, hide_index=True)
+        st.download_button("⬇ Download scored panel (CSV)", out.to_csv(index=False),
+                           file_name="hcp_scored.csv", mime="text/csv")
 
 with t2:
     st.markdown("#### Feature importance — what the model weights most")

@@ -6,6 +6,12 @@ st.set_page_config(page_title=f"{PROFILE['name']} — {PROFILE['studio']}",
                    page_icon="🧠", layout="wide")
 inject()
 
+import urllib.parse as _u
+GMAIL_LINK = ("https://mail.google.com/mail/?view=cm&fs=1&to=" + PROFILE["email"]
+              + "&su=" + _u.quote("Let's work together")
+              + "&body=" + _u.quote("Hi Aman,\n\nI came across your Strategy & Transformation Studio and would love to connect about "))
+PHONE_DIGITS = PROFILE["phone"].replace("-", "").replace(" ", "")
+
 # ---------- Hero: photo + intro ----------
 left, right = st.columns([1, 2.3], gap="large")
 with left:
@@ -20,11 +26,12 @@ with right:
         <p class="hero-name">{PROFILE['name']}</p>
         <p class="hero-sub">{PROFILE['studio']}</p>
         <p class="hero-tag">{PROFILE['tagline']}</p>
+        <p class="hero-headline">{PROFILE['headline']}</p>
         <p class="hero-summary">{PROFILE['summary']}</p>
         <div style="margin-top:1rem">
           <a class="cta-btn" href="#apps-tools">Explore the apps ↓</a>
           <span style="display:inline-block;width:.6rem"></span>
-          <a class="cta-btn" style="background:rgba(255,255,255,.07);box-shadow:none;border:1px solid rgba(255,255,255,.18)" href="mailto:{PROFILE['email']}">Get in touch</a>
+          <a class="cta-btn" target="_blank" style="background:rgba(255,255,255,.07);box-shadow:none;border:1px solid rgba(255,255,255,.18)" href="{GMAIL_LINK}">✉ Get in touch</a>
         </div>
         """, unsafe_allow_html=True)
 
@@ -112,5 +119,18 @@ for section, apps in CATALOG.items():
         with c:
             st.markdown(card_html(icon, name, desc, sector, page), unsafe_allow_html=True)
 
-st.markdown('<div style="height:2rem"></div>', unsafe_allow_html=True)
-st.caption(f"© {PROFILE['name']} · {PROFILE['email']} · Built with Streamlit")
+st.markdown('<div style="height:2.4rem"></div>', unsafe_allow_html=True)
+st.markdown(
+    f"""
+    <div class="cta-band">
+      <div class="cta-band-h">Let's build your next wave of impact.</div>
+      <div class="cta-band-s">Strategy, GTM, M&A and transformation for healthcare &amp; beyond — with the tools to prove it.</div>
+      <div style="margin-top:1.1rem">
+        <a class="cta-btn" target="_blank" href="{GMAIL_LINK}">✉ Email me</a>
+        <span style="display:inline-block;width:.6rem"></span>
+        <a class="cta-btn" style="background:rgba(255,255,255,.08);box-shadow:none;border:1px solid rgba(255,255,255,.2)" href="tel:{PHONE_DIGITS}">📞 {PROFILE['phone']}</a>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+st.markdown('<div style="height:1.2rem"></div>', unsafe_allow_html=True)
+st.caption(f"© {PROFILE['name']} · {PROFILE['email']} · {PROFILE['phone']} · Built with Streamlit")

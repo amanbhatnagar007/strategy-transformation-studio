@@ -11,7 +11,20 @@ GLASS_CSS = """
 
 :root { --accent:#8B6CFF; --accent2:#22D3EE; --ink:#EAF0FF; --muted:#9AA6CC; }
 
+html { scroll-behavior: smooth; }
 html, body, [class*="css"]  { font-family:'Inter',sans-serif; }
+
+.hero-headline { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:600; line-height:1.35;
+  color:#fff; margin:.7rem 0 0; max-width:640px;
+  background: linear-gradient(92deg,#fff,#d7ccff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+/* Closing CTA band */
+.cta-band { text-align:center; padding:2.4rem 1rem; border-radius:24px;
+  background: linear-gradient(120deg, rgba(139,108,255,.18), rgba(34,211,238,.12));
+  border:1px solid rgba(255,255,255,.12); backdrop-filter: blur(14px); }
+.cta-band-h { font-family:'Space Grotesk',sans-serif; font-size:1.7rem; font-weight:700; color:#fff;
+  background: linear-gradient(92deg,#fff,#bfb0ff,#22D3EE); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.cta-band-s { color:#c3ccec; font-size:1rem; margin-top:.5rem; }
 
 /* Animated aurora background */
 .stApp {

@@ -11,6 +11,8 @@ PROFILE = {
         "delivering ~$1B in cumulative client impact."
     ),
     "email": "amanbhatnagarmrt@gmail.com",
+    "phone": "+91-9811186994",
+    "headline": "I turn commercial strategy into measured impact — and I've done it to the tune of ~$1B.",
     "about": (
         "I help healthcare and lifesciences leaders answer their hardest commercial questions — "
         "how to enter a market, where to play, how to take a product to market, what an acquisition is "

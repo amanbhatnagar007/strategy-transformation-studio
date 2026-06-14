@@ -39,7 +39,8 @@ if prompt:
     with st.chat_message("assistant", avatar="🤖"):
         if api_key:
             with st.spinner("Thinking…"):
-                ans, note = answer_with_key(prompt, api_key)
+                hist = [(r, m) for r, m in st.session_state.chat[:-1]]
+                ans, note = answer_with_key(prompt, api_key, history=hist)
             if note:
                 st.caption("⚠ " + note)
         else:

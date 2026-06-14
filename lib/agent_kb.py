@@ -58,7 +58,50 @@ KB = [
      "Lifesciences & Healthcare (MedTech, Payer/PBM, providers) with selective cross-sector work. He's delivered ~$1B "
      "in cumulative client impact, led 100+ engagements, and mentored 150+ professionals. Previously a Decision "
      "Analytics Consultant at ZS Associates."),
+    ("How do you size a sales force / design territories?",
+     "I size the force to the work, not the other way round. Start from the account universe and the call plan each "
+     "segment needs, convert that to capacity, then shape territories for balanced workload and fair earning potential. "
+     "I've redesigned commercial structures for a $10B MedTech client — aligning roles, territories and responsibilities "
+     "unlocked ~$0.5B of growth — and optimized salesforce deployment on large transactions with 100% placement."),
+    ("How do you design incentive compensation?",
+     "Pay for what you want more of, keep it simple enough that a rep can do the math in their head. I align the plan to "
+     "the commercial strategy — quota structure, payout curves, accelerators — and stress-test for fairness, cost of "
+     "sales and unintended behavior. I'm an EY Certified SFE Trainer and ZS Certified IC Design Professional."),
+    ("How do you think about pricing and business models?",
+     "Price to the value and the buyer's economics, not to cost-plus. In MedTech I've moved clients from capital, "
+     "volume-driven pricing into subscription, Solution-as-a-Service and pay-per-use — lowering adoption barriers and "
+     "smoothing revenue. One pay-per-use offering grew to ~10% of total company revenue."),
+    ("How do you optimize omni-channel / digital marketing?",
+     "Map the customer journey, then allocate spend to the channel mix that actually moves behavior, measured by "
+     "conversion not activity. For a diabetes client I analyzed interactions across omni digital channels and lifted "
+     "physician conversion by ~5%."),
+    ("How do you analyze payer contracts / provider profitability?",
+     "I look through encounter volumes, service and patient mix, and reimbursement rates to find where contracts make "
+     "or lose money, then renegotiate from facts. This drove a ~15% profitability improvement for a large healthcare "
+     "provider and smarter, stronger payer relationships."),
+    ("What did you do with Medicare Advantage?",
+     "I transformed a Medicare Advantage partnership for a leading provider — improving risk capture, optimizing care "
+     "management programs, enhancing referral pathways and benchmarking reimbursement across payers — unlocking $20M+ "
+     "of upside."),
+    ("How do you size a market (TAM/SAM/SOM)?",
+     "Top-down for the boundary, bottom-up to make it real, and triangulate. TAM from population and prevalence, SAM "
+     "from the addressable, reachable segment, SOM from a defensible share given route-to-market and competition. I keep "
+     "the assumptions explicit so a CXO can challenge them."),
+    ("How do you run commercial due diligence?",
+     "Test the equity story: is the market real and growing, is the right to win durable, and do the projections hold? "
+     "I pressure-test the commercial model, pipeline and competitive position, and separate high-confidence value from "
+     "execution-dependent upside before it's credited to the deal."),
+    ("How can I contact you / work with you?",
+     "Email amanbhatnagarmrt@gmail.com or call +91-9811186994. I take on commercial strategy, GTM, M&A and "
+     "transformation work — happy to talk through your situation."),
 ]
+
+# Topics the agent can genuinely speak to — used to avoid hallucinating.
+TOPICS = ["go-to-market strategy", "route-to-market (direct vs indirect)", "market prioritization",
+          "M&A synergies & due diligence", "cost transformation & org redesign", "sales force sizing",
+          "incentive compensation", "pricing & business models", "omni-channel marketing",
+          "payer contracts & provider profitability", "Medicare Advantage", "market sizing",
+          "HCP churn", "MedTech trends", "and Aman's background"]
 
 _QUESTIONS = [q for q, _ in KB]
 _vectorizer = TfidfVectorizer(stop_words="english")
@@ -80,28 +123,37 @@ def retrieve(query, k=2):
     return [(KB[i][0], KB[i][1], float(sims[i])) for i in idx if sims[i] > 0.02]
 
 
+def _topic_list():
+    return "I can speak to: " + ", ".join(TOPICS) + ". Ask me about any of those."
+
+
 def answer_offline(query):
     hits = retrieve(query, k=2)
-    if not hits:
-        return ("I don't have a framed answer for that yet — try one of the suggested questions, "
-                "or ask about GTM, route-to-market, M&A synergies, cost transformation, HCP churn, "
-                "or MedTech business models.")
-    # lead with the best match, optionally add a second supporting note
+    # No-hallucination guardrail: if nothing matches well, say so instead of inventing.
+    if not hits or hits[0][2] < 0.06:
+        return ("I want to stay accurate, so I only answer from what I actually know about Aman's work. "
+                "That question is outside it (or too broad). " + _topic_list())
     out = hits[0][1]
     if len(hits) > 1 and hits[1][2] > 0.12:
         out += "\n\n" + hits[1][1]
     return out
 
 
-def answer_with_key(query, api_key, model="claude-haiku-4-5-20251001"):
+def answer_with_key(query, api_key, history=None, model="claude-haiku-4-5-20251001"):
     """Optional: generate a grounded answer via Anthropic. Falls back on any error."""
     context = "\n\n".join(f"Q: {q}\nA: {a}" for q, a, _ in retrieve(query, k=3))
+    if not context:
+        return answer_offline(query), None
     sys = ("You are Aman Bhatnagar's strategy assistant. Answer in his voice — crisp, MBB-consultant style, "
-           "first person. Ground every answer ONLY in the provided context; if it's not covered, say so briefly.")
+           "first person, 2-4 short paragraphs max. CRITICAL: ground every claim ONLY in the provided context. "
+           "Never invent numbers, clients, or facts. If the context doesn't cover the question, say so plainly and "
+           "point them to the topics you can discuss. Do not fabricate.")
+    messages = []
+    for role, msg in (history or [])[-4:]:
+        messages.append({"role": role, "content": msg})
+    messages.append({"role": "user", "content": f"Context (the ONLY facts you may use):\n{context}\n\nQuestion: {query}"})
     body = json.dumps({
-        "model": model, "max_tokens": 600,
-        "system": sys,
-        "messages": [{"role": "user", "content": f"Context:\n{context}\n\nQuestion: {query}"}],
+        "model": model, "max_tokens": 600, "system": sys, "messages": messages,
     }).encode()
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages", data=body,
