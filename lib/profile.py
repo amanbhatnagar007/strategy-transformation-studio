@@ -20,12 +20,44 @@ PROFILE = {
     "skills": ["Strategy & Operations", "GTM Strategy", "Transactions (M&A)", "Transformation",
                "Commercial Analytics", "Power BI", "SQL", "Python", "R"],
     "experience": [
-        ("EY-Parthenon Global", "Director, Strategy & Transaction", "Apr 2022 – Present",
-         "Commercial & GTM strategy, M&A, and transformation for global MedTech, Payer/PBM and providers."),
-        ("ZS Associates", "Decision Analytics Consultant", "Jul 2015 – Apr 2022",
-         "Commercial strategy, salesforce design, omni-channel analytics and M&A for top MedTech & pharma."),
+        {
+            "org": "EY-Parthenon Global",
+            "role": "Director, Strategy & Transaction",
+            "dates": "Apr 2022 – Present  ·  3.5 yrs",
+            "blurb": "Lead commercial & GTM strategy, M&A, and enterprise transformation for global "
+                     "MedTech, Payer/PBM and healthcare providers. Run a 40-member team (80+ indirect).",
+            "bullets": [
+                "Redefined GTM & incentive design for a global MedTech client — 3–5% incremental revenue.",
+                "Designed subscription & pay-per-use models now contributing ~10% of a top-20 MedTech's revenue.",
+                "Identified ~$100M+ synergies across 6+ Payer & PBM transactions.",
+                "Built the Day-1 commercial operating model for a $3B business separation.",
+            ],
+        },
+        {
+            "org": "ZS Associates",
+            "role": "Decision Analytics Consultant",
+            "dates": "Jul 2015 – Apr 2022  ·  7 yrs",
+            "blurb": "Commercial strategy, salesforce design, omni-channel analytics and M&A for "
+                     "Fortune-20 MedTech & pharma clients.",
+            "bullets": [
+                "Redesigned commercial structure for a $10B MedTech client — unlocked ~$0.5B growth.",
+                "Pioneered the 2025 MedTech Trends publication — $5M opportunities for 5+ Fortune-20 clients.",
+                "Built a predictive HCP churn model to trigger timely rep interventions.",
+                "Automated quarterly targeting in SQL — cut effort 50%, saving ~$1M over 3 years.",
+            ],
+        },
     ],
 }
+
+# Signature engagements highlighted on the home page
+HIGHLIGHTS = [
+    ("🏥", "$3B business separation", "Designed the Day-1 commercial operating model — market-ready across both entities in 9 months.", "EY"),
+    ("💊", "$100M+ M&A synergies", "Across 6+ Payer & PBM deals via pharmacy service models and class-of-trade pricing.", "EY"),
+    ("📈", "$0.5B growth unlocked", "Re-architected the commercial structure of a $10B MedTech client.", "ZS"),
+    ("🔁", "Pay-per-use models", "New business models now ~10% of a top-20 MedTech's total revenue.", "EY"),
+    ("🩺", "+15% provider profitability", "Smarter payer-contract decisions via encounter & reimbursement analysis.", "EY"),
+    ("📰", "2025 MedTech Trends", "Authored thought leadership showcased on the global stage and EY.com.", "ZS"),
+]
 
 # section -> list of (icon, name, desc, sector, page_file or None)
 CATALOG = {
