@@ -85,8 +85,8 @@ HIGHLIGHTS = [
 # section -> list of (icon, name, desc, sector, page_file or None)
 CATALOG = {
     "Commercial & GTM Strategy": [
+        ("🧭", "Sales Force Design & IC Suite", "Upload HCPs → segment, target, size, align, IC", "LS&HC", "26_Sales_Force_Design_Suite"),
         ("🚀", "GTM Strategy Builder", "Product → launch plan & channel mix", "LS&HC", "1_GTM_Strategy_Builder"),
-        ("🧭", "Sales Force Sizer", "Reps & accounts → territory design", "LS&HC", "6_Sales_Force_Sizer"),
         ("📊", "Business Model Simulator", "Capital vs subscription vs pay-per-use", "LS&HC", "7_Business_Model_Simulator"),
         ("🎯", "Incentive Comp Designer", "Quota & payout curve design", "LS&HC", "8_Incentive_Comp_Designer"),
         ("🏷️", "Pricing & Market-Entry Planner", "Price corridor & entry mode", "Cross", "9_Pricing_Market_Entry"),
