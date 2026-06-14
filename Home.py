@@ -21,6 +21,11 @@ with right:
         <p class="hero-sub">{PROFILE['studio']}</p>
         <p class="hero-tag">{PROFILE['tagline']}</p>
         <p class="hero-summary">{PROFILE['summary']}</p>
+        <div style="margin-top:1rem">
+          <a class="cta-btn" href="#apps-tools">Explore the apps ↓</a>
+          <span style="display:inline-block;width:.6rem"></span>
+          <a class="cta-btn" style="background:rgba(255,255,255,.07);box-shadow:none;border:1px solid rgba(255,255,255,.18)" href="mailto:{PROFILE['email']}">Get in touch</a>
+        </div>
         """, unsafe_allow_html=True)
 
 # ---------- Metrics ----------
@@ -82,23 +87,30 @@ with ecol2:
     glass(rec)
 
 # ---------- App launcher ----------
-st.markdown('<div class="sec-h">Apps & Tools</div>', unsafe_allow_html=True)
-st.caption("Majority Lifesciences & Healthcare · some cross-sector. Each tool takes inputs and returns insight — no setup required.")
+st.markdown('<div class="sec-h" id="apps-tools">Apps & Tools</div>', unsafe_allow_html=True)
+live_count = sum(1 for apps in CATALOG.values() for *_, p in apps if p)
+st.caption(f"{live_count} live · 25 planned. Majority Lifesciences & Healthcare, some cross-sector. "
+           "Each tool takes inputs and returns insight — no setup, runs in your browser. Click any live card to open it.")
+
+def card_html(icon, name, desc, sector, page):
+    pill_cls = "pill-hc" if sector == "LS&HC" else "pill-x"
+    badge = ('<div style="color:#22D3EE;font-size:.68rem;margin-top:.35rem;font-weight:600">● Live · open →</div>'
+             if page else '<div style="color:#6f7aa0;font-size:.68rem;margin-top:.35rem">Coming soon</div>')
+    inner = (f'<div class="glass app-card"><div class="ic">{icon}</div>'
+             f'<div class="nm" style="font-size:.9rem">{name}</div>'
+             f'<div class="ds">{desc}</div>'
+             f'<div style="margin-top:.45rem"><span class="pill {pill_cls}">{sector}</span></div>{badge}</div>')
+    if page:
+        slug = page.split("_", 1)[1]   # Streamlit URL slug (filename without numeric prefix)
+        return f'<a class="cardlink" target="_self" href="{slug}">{inner}</a>'
+    return inner
 
 for section, apps in CATALOG.items():
     st.markdown(f'<div class="sub-h">{section}</div>', unsafe_allow_html=True)
     cols = st.columns(5)
     for c, (icon, name, desc, sector, page) in zip(cols, apps):
         with c:
-            pill_cls = "pill-hc" if sector == "LS&HC" else "pill-x"
-            live = "" if page else '<div style="color:#6f7aa0;font-size:.68rem;margin-top:.35rem">Coming soon</div>'
-            glass(
-                f'<div class="app-card"><div class="ic">{icon}</div>'
-                f'<div class="nm" style="font-size:.9rem">{name}</div>'
-                f'<div class="ds">{desc}</div>'
-                f'<div style="margin-top:.45rem"><span class="pill {pill_cls}">{sector}</span></div>{live}</div>')
-            if page:
-                st.page_link(f"pages/{page}.py", label="Open →")
+            st.markdown(card_html(icon, name, desc, sector, page), unsafe_allow_html=True)
 
 st.markdown('<div style="height:2rem"></div>', unsafe_allow_html=True)
 st.caption(f"© {PROFILE['name']} · {PROFILE['email']} · Built with Streamlit")

@@ -92,6 +92,28 @@ html, body, [class*="css"]  { font-family:'Inter',sans-serif; }
 header[data-testid="stHeader"] { background: transparent; }
 #MainMenu, footer { visibility: hidden; }
 section[data-testid="stSidebar"] { background: rgba(10,14,28,.7); backdrop-filter: blur(10px); }
+
+/* Label above the auto page-nav so it reads as the app list */
+section[data-testid="stSidebarNav"]::before {
+  content: "🧩  Apps · MVPs";
+  display:block; font-family:'Space Grotesk',sans-serif; font-weight:600;
+  color:#fff; font-size:.95rem; padding:.4rem 1rem .1rem; letter-spacing:.02em;
+}
+section[data-testid="stSidebarNav"]::after {
+  content: "Click any app to open it";
+  display:block; color:#8b95ba; font-size:.72rem; padding:0 1rem .5rem;
+  border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:.4rem;
+}
+
+/* Clickable app card link */
+a.cardlink { text-decoration:none !important; display:block; color:inherit; }
+a.cardlink:hover .glass { transform: translateY(-4px); border-color: rgba(139,108,255,.6);
+  box-shadow: 0 16px 44px rgba(139,108,255,.22), inset 0 1px 0 rgba(255,255,255,.08); }
+.cta-btn { display:inline-block; text-decoration:none !important; font-family:'Space Grotesk',sans-serif;
+  font-weight:600; font-size:.95rem; color:#fff !important; padding:.7rem 1.5rem; border-radius:14px;
+  background: linear-gradient(92deg,#8B6CFF,#22D3EE); box-shadow:0 8px 26px rgba(139,108,255,.4);
+  transition: transform .15s ease, box-shadow .15s ease; }
+.cta-btn:hover { transform: translateY(-2px); box-shadow:0 12px 32px rgba(34,211,238,.45); }
 </style>
 """
 
