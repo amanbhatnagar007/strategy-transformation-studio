@@ -1,119 +1,151 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 from lib.theme import page_header, glass
 from lib.profile import PROFILE
+from lib.gtm_data import MARKETS, ROUTES
+from lib.gtm_logic import score_routes, prioritize_markets, business_case, exec_summary
 
 st.set_page_config(page_title="GTM Strategy Builder", page_icon="🚀", layout="wide")
-page_header("🚀 GTM Strategy Builder",
-            "Design a go-to-market plan from a few inputs — channel mix, segmentation, and a launch roadmap.")
+page_header("🚀 GTM & Route-to-Market Strategy Builder",
+            "A CXO-grade decision tool: recommends your go-to-market route, prioritizes target countries by "
+            "sector, and builds a 5-year ROI business case — all from a few inputs.")
 st.page_link("Home.py", label="← Back to Studio")
 
-# ---------------- Inputs ----------------
+# ===================== INPUTS =====================
 with st.sidebar:
-    st.header("Inputs")
+    st.header("1 · Product & market")
     product = st.text_input("Product / offering", "Next-gen CGM sensor")
-    sector = st.selectbox("Sector", ["MedTech", "Pharma", "Provider / Hospital",
-                                     "Payer / PBM", "Consumer", "Other"])
-    stage = st.selectbox("Launch stage", ["New product launch", "New market entry",
-                                          "Re-launch / reposition", "Portfolio expansion"])
+    sector = st.selectbox("Sector", list(MARKETS.keys()))
+    ptype = st.selectbox("Product type", ["Capital equipment", "Disposable / consumable",
+                                          "Software / SaMD", "Drug / therapy", "Service"])
     model = st.selectbox("Commercial model", ["Capital / one-time", "Subscription",
                                               "Pay-per-use", "Hybrid"])
-    buyers = st.multiselect("Primary buyers",
-                            ["Clinicians / HCPs", "Hospital procurement", "Payers",
-                             "Patients / consumers", "Distributors", "Health systems (IDN)"],
-                            default=["Clinicians / HCPs", "Hospital procurement"])
-    market_size = st.number_input("Addressable market ($M)", 50, 100000, 2000, step=50)
-    price = st.number_input("Avg. annual price / unit ($)", 10, 1_000_000, 1200, step=10)
-    sales_cycle = st.slider("Sales cycle (months)", 1, 24, 6)
-    differentiation = st.slider("Differentiation vs. competition (1–10)", 1, 10, 7)
-    digital = st.slider("Digital maturity of buyers (1–10)", 1, 10, 6)
+    st.header("2 · Commercial profile")
+    asp = st.number_input("Avg. selling price / unit ($)", 10, 5_000_000, 1500, step=50)
+    complexity = st.slider("Clinical / sales complexity (1–10)", 1, 10, 7)
+    fragmentation = st.slider("Buyer fragmentation (1–10)", 1, 10, 6)
+    digital = st.slider("Buyer digital maturity (1–10)", 1, 10, 6)
+    presence = st.slider("Your local presence / brand (1–10)", 1, 10, 4)
+    st.header("3 · Business case")
+    invest = st.number_input("Upfront investment ($M)", 1, 2000, 40, step=5)
+    units_y1 = st.number_input("Year-1 unit volume", 100, 5_000_000, 45000, step=500)
+    vol_cagr = st.slider("Volume CAGR (%)", 0, 80, 25)
+    gross_margin = st.slider("Gross margin (%)", 10, 90, 62)
 
-# ---------------- Logic (deterministic "AI") ----------------
-def channel_mix(buyers, sales_cycle, digital, model):
-    field = 35 + 2.5 * sales_cycle
-    inside = 15 + (10 - digital) * 1.0
-    dgtl = 8 + digital * 2.2                     # digital / e-commerce
-    partner = 12 + (8 if "Distributors" in buyers else 0)
-    kam = 10 + (12 if ("Health systems (IDN)" in buyers or "Hospital procurement" in buyers) else 0)
-    if model in ("Subscription", "Pay-per-use"):
-        dgtl += 8; inside += 6; field -= 8
-    raw = {"Field sales": field, "Inside sales": inside, "Digital / self-serve": dgtl,
-           "Channel / distributors": partner, "Key account mgmt": kam}
-    tot = sum(raw.values())
-    return {k: round(v / tot * 100) for k, v in raw.items()}
+# ===================== COMPUTE =====================
+routes = score_routes(asp, complexity, digital, fragmentation, presence, model, units_y1)
+top_route = routes[0][0]
+markets = prioritize_markets(MARKETS[sector])
+top_market_names = [m["country"] for m in markets[:3]]
 
-def segments(sector, buyers):
-    base = [("Innovators / early adopters", "High differentiation receptivity", 15),
-            ("Value-driven mainstream", "ROI & outcomes focused", 45),
-            ("Late / price-sensitive", "Win on TCO & service", 40)]
-    return base
+# ===================== HEADLINE =====================
+bc_top = business_case(invest, asp, units_y1, vol_cagr, gross_margin, top_route)
+k1, k2, k3, k4 = st.columns(4)
+k1.markdown(f'<div class="glass metric"><div class="v" style="font-size:1.15rem">{top_route}</div><div class="l">Recommended route</div></div>', unsafe_allow_html=True)
+k2.markdown(f'<div class="glass metric"><div class="v">{bc_top["roi"]}%</div><div class="l">5-yr ROI</div></div>', unsafe_allow_html=True)
+k3.markdown(f'<div class="glass metric"><div class="v">${bc_top["npv"]:,.0f}M</div><div class="l">NPV @12%</div></div>', unsafe_allow_html=True)
+k4.markdown(f'<div class="glass metric"><div class="v">{bc_top["payback"]}</div><div class="l">Payback</div></div>', unsafe_allow_html=True)
 
-def readiness(differentiation, digital, sales_cycle):
-    score = 0.45 * differentiation * 10 + 0.30 * digital * 10 + 0.25 * max(0, (24 - sales_cycle)) / 24 * 100
-    return round(min(99, score))
+tab1, tab2, tab3, tab4 = st.tabs(["🧭 Route-to-Market", "🌍 Market Prioritization",
+                                  "💰 ROI Business Case", "📋 Executive Summary"])
 
-def revenue_ramp(market_size, price, differentiation):
-    share_y3 = min(0.25, 0.02 + differentiation * 0.012)        # capped SOM
-    peak = market_size * share_y3
-    curve = [round(peak * f, 1) for f in (0.08, 0.22, 0.45, 0.72, 1.0)]
-    return curve, round(share_y3 * 100, 1)
+# ---------- TAB 1: RTM ----------
+with tab1:
+    st.markdown("#### Recommended route-to-market (direct vs indirect vs hybrid)")
+    st.caption("Scored on ASP, clinical complexity, buyer fragmentation, digital maturity, local presence and commercial model.")
+    cL, cR = st.columns([1.1, 1])
+    with cL:
+        names = [r[0] for r in routes]
+        vals = [r[1] for r in routes]
+        colors = ["#22D3EE" if n == top_route else "#5B4B9E" for n in names]
+        fig = go.Figure(go.Bar(x=vals, y=names, orientation="h", marker_color=colors,
+                               text=[f"{v}" for v in vals], textposition="outside"))
+        fig.update_layout(template="plotly_dark", height=300, margin=dict(l=10, r=30, t=10, b=10),
+                          paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                          xaxis_title="Fit score (0–100)", yaxis=dict(autorange="reversed"))
+        st.plotly_chart(fig, use_container_width=True)
+    with cR:
+        for i, (name, score, why) in enumerate(routes[:3]):
+            tag = "★ Recommended" if i == 0 else f"#{i+1}"
+            glass(f'<div style="display:flex;justify-content:space-between"><span style="font-weight:600;color:#fff">{name}</span>'
+                  f'<span style="color:#22D3EE;font-size:.8rem">{tag} · {score}</span></div>'
+                  f'<div style="color:#aab4d6;font-size:.82rem;margin-top:.25rem">{ROUTES[name]}</div>'
+                  f'<div style="color:#c4b5ff;font-size:.78rem;margin-top:.35rem">Why here: {why}.</div>')
 
-mix = channel_mix(buyers, sales_cycle, digital, model)
-segs = segments(sector, buyers)
-ready = readiness(differentiation, digital, sales_cycle)
-ramp, som = revenue_ramp(market_size, price, differentiation)
-
-# ---------------- Output ----------------
-c1, c2, c3 = st.columns(3)
-c1.markdown(f'<div class="glass metric"><div class="v">{ready}/100</div><div class="l">Launch readiness</div></div>', unsafe_allow_html=True)
-c2.markdown(f'<div class="glass metric"><div class="v">{som}%</div><div class="l">Est. Yr-3 market share</div></div>', unsafe_allow_html=True)
-c3.markdown(f'<div class="glass metric"><div class="v">${ramp[-1]:,.0f}M</div><div class="l">Yr-5 revenue potential</div></div>', unsafe_allow_html=True)
-
-st.markdown("### Recommended channel mix")
-left, right = st.columns([1, 1])
-with left:
-    fig = go.Figure(go.Bar(x=list(mix.values()), y=list(mix.keys()), orientation="h",
-                           marker_color="#7C5CFF", text=[f"{v}%" for v in mix.values()],
-                           textposition="outside"))
-    fig.update_layout(template="plotly_dark", height=300, margin=dict(l=10, r=20, t=10, b=10),
-                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                      xaxis_title="% of commercial effort")
+# ---------- TAB 2: MARKETS ----------
+with tab2:
+    st.markdown(f"#### Target-market prioritization — {sector}")
+    st.caption("Bubble = market. X: ease of entry · Y: attractiveness · size: growth. Top-right enters first.")
+    dfm = pd.DataFrame(markets)
+    fig = px.scatter(dfm, x="ease", y="attract", size="growth", color="tier", text="country",
+                     color_discrete_map={"Tier 1 — Now": "#22D3EE", "Tier 2 — Next": "#8B6CFF",
+                                         "Tier 3 — Later": "#6B7393"},
+                     size_max=42, height=430)
+    fig.update_traces(textposition="top center", textfont=dict(size=10, color="#cdd6f5"))
+    fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                      xaxis_title="Ease of entry →", yaxis_title="Market attractiveness →",
+                      legend_title="", margin=dict(l=10, r=10, t=10, b=10))
     st.plotly_chart(fig, use_container_width=True)
-with right:
-    yrs = ["Y1", "Y2", "Y3", "Y4", "Y5"]
-    fig2 = go.Figure(go.Scatter(x=yrs, y=ramp, mode="lines+markers", fill="tozeroy",
-                                line=dict(color="#22D3EE", width=3)))
-    fig2.update_layout(template="plotly_dark", height=300, margin=dict(l=10, r=10, t=10, b=10),
-                       paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                       yaxis_title="Revenue ($M)", title="Revenue ramp")
-    st.plotly_chart(fig2, use_container_width=True)
+    st.markdown("#### Entry sequence")
+    show = dfm[["country", "region", "tier", "wave", "attract", "ease", "growth"]].rename(
+        columns={"attract": "Attractiveness", "ease": "Ease", "growth": "Growth %"})
+    st.dataframe(show, use_container_width=True, hide_index=True)
 
-st.markdown("### Target segments")
-scols = st.columns(3)
-for col, (name, why, pct) in zip(scols, segs):
-    with col:
-        glass(f'<div style="font-weight:600;color:#fff">{name}</div>'
-              f'<div style="color:#9AA5C4;font-size:.8rem;margin:.2rem 0">{why}</div>'
-              f'<div style="color:#22D3EE;font-weight:600">{pct}% of market</div>')
+# ---------- TAB 3: ROI ----------
+with tab3:
+    st.markdown("#### 5-year business case — and direct vs indirect economics")
+    st.caption("Adjust inputs in the sidebar. Indirect routes trade margin (distributor take) for lower fixed cost.")
+    compare = st.multiselect("Compare routes", list(ROUTES.keys()),
+                             default=[top_route, "Distributor / indirect"])
+    cases = {r: business_case(invest, asp, units_y1, vol_cagr, gross_margin, r) for r in compare}
 
-st.markdown("### 90-day launch roadmap")
-roadmap = [
-    ("Days 0–30 · Foundation", f"Lock value proposition for {product}; finalize segmentation; "
-     f"stand up {max(mix, key=mix.get).lower()} as the lead channel; align pricing for the {model.lower()} model."),
-    ("Days 31–60 · Mobilize", "Train field & inside teams; build KAM target list for top accounts; "
-     "configure CRM, incentives and KPIs; launch digital demand-gen."),
-    ("Days 61–90 · Scale", "Activate full channel mix; weekly funnel reviews; tune messaging by segment; "
-     "set the value-tracking dashboard for the revenue ramp above."),
-]
-for title, body in roadmap:
-    glass(f'<div style="font-weight:600;color:#c4b5ff">{title}</div>'
-          f'<div style="color:#cdd5ee;font-size:.88rem;line-height:1.5;margin-top:.2rem">{body}</div>')
+    cc = st.columns(len(cases)) if cases else [st]
+    for col, (r, bc) in zip(cc, cases.items()):
+        with col:
+            glass(f'<div style="font-weight:600;color:#fff">{r}</div>'
+                  f'<div style="color:#aab4d6;font-size:.8rem;margin:.3rem 0">ROI <b style="color:#22D3EE">{bc["roi"]}%</b> · '
+                  f'NPV <b style="color:#22D3EE">${bc["npv"]}M</b> · payback {bc["payback"]}</div>'
+                  f'<div style="color:#9AA6CC;font-size:.76rem">distributor take {bc["distributor_take"]}% · opex {bc["opex_pct"]}% of rev</div>')
 
-with st.expander("Download plan (CSV)"):
-    df = pd.DataFrame({"channel": mix.keys(), "effort_pct": mix.values()})
-    st.download_button("Download channel mix", df.to_csv(index=False),
-                       file_name="gtm_channel_mix.csv", mime="text/csv")
+    fig = go.Figure()
+    palette = ["#22D3EE", "#8B6CFF", "#EC4899", "#F59E0B", "#34D399"]
+    for (r, bc), color in zip(cases.items(), palette):
+        df = pd.DataFrame(bc["rows"])
+        fig.add_trace(go.Scatter(x=df["Year"], y=df["Cumulative cash ($M)"], mode="lines+markers",
+                                 name=r, line=dict(width=3, color=color)))
+    fig.add_hline(y=0, line_dash="dot", line_color="#888")
+    fig.update_layout(template="plotly_dark", height=330, paper_bgcolor="rgba(0,0,0,0)",
+                      plot_bgcolor="rgba(0,0,0,0)", yaxis_title="Cumulative cash ($M)",
+                      margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h", y=-0.2))
+    st.plotly_chart(fig, use_container_width=True)
 
-st.caption("Heuristic model grounded in commercial-strategy frameworks. "
-           f"For a tailored engagement: {PROFILE['email']}.")
+    with st.expander("See full P&L for the recommended route"):
+        st.dataframe(pd.DataFrame(business_case(invest, asp, units_y1, vol_cagr, gross_margin, top_route)["rows"]),
+                     use_container_width=True, hide_index=True)
+
+# ---------- TAB 4: SUMMARY ----------
+with tab4:
+    st.markdown("#### Board-ready executive summary")
+    summary = exec_summary(product, sector, top_route, top_market_names, bc_top)
+    glass(f'<div style="font-size:.98rem;line-height:1.7;color:#dfe5fb">{summary}</div>')
+    c1, c2 = st.columns(2)
+    with c1:
+        glass('<div style="font-weight:600;color:#fff">Strategic options to weigh</div>'
+              '<div class="bullet">Build vs. partner for Wave-1 entry speed</div>'
+              '<div class="bullet">Own salesforce vs. distributor margin trade-off</div>'
+              '<div class="bullet">Land-and-expand in Tier-1 before Tier-2 spend</div>'
+              '<div class="bullet">Pricing model alignment to buyer economics</div>')
+    with c2:
+        glass('<div style="font-weight:600;color:#fff">Key risks to de-risk</div>'
+              '<div class="bullet">Reimbursement / regulatory timing by market</div>'
+              '<div class="bullet">Channel conflict in hybrid models</div>'
+              '<div class="bullet">Ramp assumptions vs. real adoption curve</div>'
+              '<div class="bullet">Competitive response & price erosion</div>')
+    df = pd.DataFrame(bc_top["rows"])
+    st.download_button("⬇ Download business case (CSV)", df.to_csv(index=False),
+                       file_name="gtm_business_case.csv", mime="text/csv")
+
+st.caption("AI-assisted heuristic model grounded in commercial-strategy & route-to-market frameworks. "
+           f"Indices are directional planning inputs, not live market data. For a tailored engagement: {PROFILE['email']}.")

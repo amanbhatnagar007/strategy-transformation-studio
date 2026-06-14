@@ -46,6 +46,16 @@ for row in rows:
                   f'<div class="t">{title}</div><div class="d">{desc}</div>'
                   f'<div class="src" style="margin-top:.5rem">{src}</div></div>')
 
+# ---------- About / approach ----------
+st.markdown('<div class="sec-h">How I work</div>', unsafe_allow_html=True)
+glass(f'<div style="font-size:.98rem;line-height:1.75;color:#dfe5fb">{PROFILE["about"]}</div>')
+fcols = st.columns(len(PROFILE["focus"]))
+for c, (icon, title, desc) in zip(fcols, PROFILE["focus"]):
+    with c:
+        glass(f'<div class="ic">{icon}</div>'
+              f'<div style="font-family:Space Grotesk;font-weight:600;color:#fff;font-size:.92rem;margin:.3rem 0 .2rem">{title}</div>'
+              f'<div style="color:#aab4d6;font-size:.8rem;line-height:1.45">{desc}</div>')
+
 # ---------- Experience ----------
 st.markdown('<div class="sec-h">Experience</div>', unsafe_allow_html=True)
 for e in PROFILE["experience"]:
@@ -57,6 +67,19 @@ for e in PROFILE["experience"]:
         f'<div style="color:#9AA6CC;font-size:.82rem">{e["dates"]}</div></div>'
         f'<div style="color:#aab4d6;font-size:.9rem;margin:.4rem 0 .5rem;line-height:1.5">{e["blurb"]}</div>'
         f'{bullets}')
+
+# ---------- Education & recognition ----------
+ecol1, ecol2 = st.columns([1, 1.6])
+with ecol1:
+    st.markdown('<div class="sec-h">Education</div>', unsafe_allow_html=True)
+    sch, deg, yr = PROFILE["education"]
+    glass(f'<div style="font-family:Space Grotesk;font-weight:600;color:#fff;font-size:1.1rem">{sch}</div>'
+          f'<div style="color:#c4b5ff;font-size:.9rem">{deg}</div>'
+          f'<div style="color:#9AA6CC;font-size:.8rem;margin-top:.2rem">{yr}</div>')
+with ecol2:
+    st.markdown('<div class="sec-h">Recognition</div>', unsafe_allow_html=True)
+    rec = "".join(f'<div class="bullet">{r}</div>' for r in PROFILE["recognition"])
+    glass(rec)
 
 # ---------- App launcher ----------
 st.markdown('<div class="sec-h">Apps & Tools</div>', unsafe_allow_html=True)

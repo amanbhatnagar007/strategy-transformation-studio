@@ -11,6 +11,27 @@ PROFILE = {
         "delivering ~$1B in cumulative client impact."
     ),
     "email": "amanbhatnagarmrt@gmail.com",
+    "about": (
+        "I help healthcare and lifesciences leaders answer their hardest commercial questions — "
+        "how to enter a market, where to play, how to take a product to market, what an acquisition is "
+        "really worth, and how to transform the operating model to fund growth. I work the way the best "
+        "consulting teams do: hypothesis-led, data-grounded, and relentlessly focused on the decision the "
+        "CXO actually has to make. This studio turns the frameworks I use on engagements into interactive "
+        "tools anyone can run."
+    ),
+    "focus": [
+        ("🎯", "Go-to-market & commercial strategy", "Route-to-market, segmentation, salesforce & incentive design"),
+        ("🤝", "Transactions (M&A)", "Synergy assessment, commercial due diligence, Day-1 operating models"),
+        ("⚙️", "Transformation & value creation", "Cost takeout, org redesign, EBITDA improvement"),
+        ("📊", "Commercial analytics & AI", "Churn prediction, omni-channel optimization, decision tooling"),
+    ],
+    "education": ("Thapar University", "B.E. · 9.3 / 10 CGPA", "2011 – 2015"),
+    "recognition": [
+        "EY Certified SFE Trainer · ZS Certified IC Design Professional",
+        "Published on the CGM market & AI-driven care models on EY.com",
+        "Project Championship Award (ZS) for a $3M M&A project",
+        "Consistent top performer · multiple SPOT & Best All-rounder awards",
+    ],
     "metrics": [
         ("11+ yrs", "Experience"),
         ("100+", "Engagements"),
