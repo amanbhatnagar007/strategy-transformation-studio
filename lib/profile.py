@@ -106,10 +106,8 @@ CATALOG = {
         ("🗺️", "Value-Creation Roadmap", "Initiative sequencing & ROI", "LS&HC", "17_Value_Creation_Roadmap"),
     ],
     "Lifesciences & Healthcare Analytics": [
-        ("🩺", "HCP Churn Predictor", "ML · at-risk physicians", "LS&HC", "4_HCP_Churn_Predictor"),
-        ("📡", "Omni-channel Optimizer", "Channel mix → conversion lift", "LS&HC", "18_Omnichannel_Optimizer"),
-        ("💵", "Payer Contract Analyzer", "Service mix → profitability", "LS&HC", "19_Payer_Contract_Analyzer"),
-        ("🏥", "Medicare Advantage Estimator", "Risk capture upside", "LS&HC", "20_Medicare_Advantage_Estimator"),
+        ("🩺", "HCP Engagement & Churn Suite", "Upload panel (NPI) → risk, action plan, omni-channel", "LS&HC", "27_HCP_Engagement_Churn_Suite"),
+        ("💵", "Payer & Reimbursement Suite", "Contract profitability + Medicare Advantage value", "LS&HC", "28_Payer_Reimbursement_Suite"),
         ("📏", "MedTech Market Sizer", "TAM / SAM / SOM (e.g. CGM)", "LS&HC", "21_MedTech_Market_Sizer"),
     ],
     "AI Decision Tools & Thought Leadership": [

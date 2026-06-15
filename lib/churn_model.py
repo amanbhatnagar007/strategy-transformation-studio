@@ -30,7 +30,7 @@ def make_dataset(n=2500, seed=42):
     # latent churn risk: declining Rx, low engagement, high competitor share & friction drive churn
     z = (-0.06 * df.rx_trend - 0.10 * df.calls_per_qtr - 0.025 * df.email_engagement
          - 0.03 * df.samples_used + 0.04 * df.competitor_share + 0.25 * df.tickets_open
-         + 0.22 * df.payer_friction - 0.008 * df.tenure_months + 1.0)
+         + 0.22 * df.payer_friction - 0.008 * df.tenure_months - 1.6)
     p = 1 / (1 + np.exp(-z))
     df["churned"] = (rng.random(n) < p).astype(int)
     return df

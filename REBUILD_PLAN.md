@@ -69,8 +69,9 @@ Convention: identifier is always REQUIRED. Optional columns unlock extra feature
 - `lib/actions.py` — `render_tiered_actions(df, id_col, value_col, tier_defs, ...)`: assigns tiers, renders summary cards + per-tier action cards, and offers a downloadable targeted list **including the identifier** per tier.
 
 ## Phased roadmap (each phase is self-contained & resumable)
-- **Phase A (in progress):** extend `lib/uploads.py` (required/optional) + add `lib/actions.py` + build **1B Sales Force Design & IC Suite** (full prototype) + add to Home as the new GTM flagship. ✅ when 1B is live & tested.
-- **Phase B:** Section 4 healthcare — build **4A HCP Engagement & Churn Suite** (NPI + tiered actions) and **4B Payer & Reimbursement Suite**.
+- **Phase A — ✅ DONE:** extended `lib/uploads.py` (required/optional) + `lib/actions.py` + built **1B Sales Force Design & IC Suite** (`pages/26`) with **context-aware stage sidebar** (per-step controls + `locked_panel` showing upstream params). Pattern: `st.sidebar.radio` stage selector + `st.session_state` param dict so values persist across steps.
+- **Phase B — ✅ DONE:** built **4A HCP Engagement & Churn Suite** (`pages/27`, NPI-keyed ML scoring + tiered action lists + omni-channel) and **4B Payer & Reimbursement Suite** (`pages/28`, CPT-level contract profitability + Medicare Advantage). Both use the stage-sidebar pattern. Lowered `churn_model` intercept to -1.6 (base churn ~31%, AUC ~0.84) for realistic demo risk.
+- **TESTING NOTE:** AppTest stops at `st.page_link` (url_pathname KeyError) — so to test page BODIES, monkeypatch `streamlit.page_link = lambda *a,**k: None` BEFORE AppTest, then check `at.exception` (no filtering needed). This caught real bugs (duplicate plotly_chart IDs → add `key=`; itertuples on cols with spaces → use iterrows).
 - **Phase C:** finish Section 1 — **1A GTM & Market-Entry** and **1C Pricing & Business Model Lab**; then **4C Market Access & Sizing**.
 - **Phase D:** Section 2 — **2A, 2B, 2C**.
 - **Phase E:** Section 3 — **3A, 3B, 3C**.
