@@ -50,7 +50,7 @@ def analyze(df):
     return d
 
 
-def render(df):
+def render(df, key=""):
     d = analyze(df)
     captured = d["Actual cum"].iloc[-1]
     pct_of_target = round(captured / target * 100, 1) if target else 0
@@ -81,7 +81,7 @@ def render(df):
         fig.update_layout(template="plotly_dark", height=360, paper_bgcolor="rgba(0,0,0,0)",
                           plot_bgcolor="rgba(0,0,0,0)", yaxis_title="Cumulative synergies ($M)",
                           margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h", y=-0.2))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"cum_{key}")
     with cR:
         fig2 = go.Figure(go.Bar(x=d["period"], y=d["Variance ($M)"],
                                 marker_color=["#34D399" if v >= 0 else "#F87171" for v in d["Variance ($M)"]],
@@ -89,10 +89,10 @@ def render(df):
         fig2.update_layout(template="plotly_dark", height=360, paper_bgcolor="rgba(0,0,0,0)",
                            plot_bgcolor="rgba(0,0,0,0)", yaxis_title="Variance to plan ($M)",
                            margin=dict(l=10, r=10, t=10, b=10))
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, use_container_width=True, key=f"var_{key}")
 
     st.dataframe(d.rename(columns={"period": "Period", "planned": "Planned ($M)", "actual": "Actual ($M)"}),
-                 use_container_width=True, hide_index=True)
+                 use_container_width=True, hide_index=True, key=f"tbl_{key}")
     return d, pct_of_target, last_var, projected, rr_attain
 
 
@@ -100,7 +100,7 @@ t1, tU, t2 = st.tabs(["📊 Capture vs plan", "📤 Upload your data", "📋 Exe
 
 with t1:
     st.markdown("#### Cumulative synergy capture: planned vs actual")
-    res = render(pd.DataFrame(demo_rows))
+    res = render(pd.DataFrame(demo_rows), "demo")
 
 with tU:
     st.markdown("#### Track your own deal")
@@ -108,7 +108,7 @@ with tU:
                "rows you provide are analyzed.")
     user_df = data_input(schema, demo_rows, key="dealtrack")
     if user_df is not None and not user_df.empty:
-        render(user_df)
+        render(user_df, "upload")
 
 with t2:
     st.markdown("#### Board-ready read")

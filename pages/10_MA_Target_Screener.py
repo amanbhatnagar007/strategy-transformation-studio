@@ -91,10 +91,10 @@ def render(df, src):
                       plot_bgcolor="rgba(0,0,0,0)", xaxis_title="Strategic fit",
                       yaxis_title="Synergy potential", margin=dict(l=10, r=10, t=30, b=10),
                       title="Bubble size = financial health · color = weighted score")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key=f"bubble_{src}")
 
     show = scored.rename(columns={**CRITERIA, "target": "Target"})
-    st.dataframe(show, use_container_width=True, hide_index=True)
+    st.dataframe(show, use_container_width=True, hide_index=True, key=f"tbl_{src}")
     return scored
 
 

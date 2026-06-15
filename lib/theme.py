@@ -142,6 +142,21 @@ def img_b64(name: str) -> str:
         return ""
     return base64.b64encode(p.read_bytes()).decode()
 
+def locked_panel(items, title="Locked from earlier steps"):
+    """Render a read-only sidebar panel of upstream params (list of (label, value))."""
+    if not items:
+        return
+    rows = "".join(
+        f'<div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06)">'
+        f'<span style="color:#9AA6CC;font-size:.78rem">{lbl}</span>'
+        f'<span style="color:#cdd6f5;font-size:.78rem;font-weight:500">{val}</span></div>'
+        for lbl, val in items)
+    st.sidebar.markdown(
+        f'<div style="border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.6rem .7rem;margin-top:.4rem;background:rgba(255,255,255,.03)">'
+        f'<div style="color:#fff;font-size:.8rem;font-weight:600;margin-bottom:.3rem">🔒 {title}</div>{rows}</div>',
+        unsafe_allow_html=True)
+
+
 def page_header(title: str, subtitle: str = ""):
     inject()
     st.markdown(

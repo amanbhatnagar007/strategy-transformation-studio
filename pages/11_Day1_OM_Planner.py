@@ -97,9 +97,9 @@ with t2:
         glass('<div style="color:#34D399;font-weight:600">All workstreams green — operating model is Day-1 ready on current inputs.</div>')
     else:
         bullets = "".join(
-            f'<div class="bullet"><b>{r.Workstream}</b> — {r.RAG.split()[1]} at {r["Completion %"]}% '
-            f'(weight {r["Weight %"]}%). {"Critical path — escalate." if r.RAG=="🔴 Red" else "Monitor and close remaining items."}</div>'
-            for r in gaps.itertuples())
+            f'<div class="bullet"><b>{r["Workstream"]}</b> — {r["RAG"].split()[1]} at {r["Completion %"]}% '
+            f'(weight {r["Weight %"]}%). {"Critical path — escalate." if r["RAG"]=="🔴 Red" else "Monitor and close remaining items."}</div>'
+            for _, r in gaps.iterrows())
         glass(f'<div style="font-weight:600;color:#fff;margin-bottom:.3rem">{len(gaps)} workstream(s) below green</div>{bullets}')
 
 with t3:

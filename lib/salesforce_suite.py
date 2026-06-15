@@ -26,8 +26,8 @@ def demo_universe(n=1500, seed=7):
     return rows
 
 
-def segment(df: pd.DataFrame):
-    """Add decile (1-10) from potential if absent, and tier A/B/C."""
+def segment(df: pd.DataFrame, a_min: int = 8, b_min: int = 5):
+    """Add decile (1-10) from potential if absent, and tier A/B/C using decile cutoffs."""
     out = df.copy()
     if "decile" not in out.columns:
         try:
@@ -36,7 +36,8 @@ def segment(df: pd.DataFrame):
         except Exception:
             out["decile"] = pd.cut(out["potential"], 10, labels=list(range(1, 11))).astype(int)
     out["decile"] = out["decile"].astype(int)
-    out["tier"] = np.where(out["decile"] >= 8, "A — High", np.where(out["decile"] >= 5, "B — Medium", "C — Low"))
+    out["tier"] = np.where(out["decile"] >= a_min, "A — High",
+                           np.where(out["decile"] >= b_min, "B — Medium", "C — Low"))
     return out
 
 
