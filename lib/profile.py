@@ -13,6 +13,11 @@ PROFILE = {
     "email": "amanbhatnagarmrt@gmail.com",
     "phone": "+91-9811186994",
     "headline": "I turn commercial strategy into measured value creation — ~$500M of it for clients, and counting.",
+    "positioning": "Open to Director / VP Strategy & Transformation roles in Lifesciences, Healthcare & MedTech — consulting, in-house strategy, or PE value creation.",
+    "linkedin": "https://in.linkedin.com/in/amanbhatnagarstrategyconsultant",
+    "ey_profile": "https://www.ey.com/en_us/people/aman-bhatnagar",
+    "video_url": "",  # paste a Loom/YouTube intro URL to show a "Watch 60-sec intro" button
+    "resume_file": "Aman_Bhatnagar_Resume.pdf",
     "about": (
         "I help healthcare and lifesciences leaders answer their hardest commercial questions — "
         "how to enter a market, where to play, how to take a product to market, what an acquisition is "
@@ -80,6 +85,57 @@ HIGHLIGHTS = [
     ("🔁", "Pay-per-use models", "New business models now ~10% of a top-20 MedTech's total revenue.", "EY"),
     ("🩺", "+15% provider profitability", "Smarter payer-contract decisions via encounter & reimbursement analysis.", "EY"),
     ("📰", "2025 MedTech Trends", "Authored thought leadership showcased on the global stage and EY.com.", "ZS"),
+]
+
+# Leadership & capability-building strip
+LEADERSHIP = [
+    ("👥", "40-member team led", "directly, with 80+ guided indirectly at EY-Parthenon"),
+    ("🎓", "150+ professionals mentored", "a people-first, capability-building leader"),
+    ("🏅", "Certified SFE Trainer", "EY SFE Trainer · ZS IC Design Professional"),
+    ("🌍", "US · EMEA · APAC", "delivery across global markets"),
+]
+
+# Anonymized case studies (Situation → Action → Result → Role), grounded in real engagements.
+CASE_STUDIES = [
+    {"tag": "M&A · Consumer/Health", "title": "$3B business separation — market-ready in 9 months",
+     "situation": "A $3B unit was being carved out and needed a Day-1 commercial operating model with zero customer disruption.",
+     "action": "Designed the Day-1 commercial OM across sales, marketing and support; sequenced readiness and TSA exits.",
+     "result": "Both entities went market-ready within 9 months with continuity of customer experience.",
+     "role": "Led the commercial separation workstream."},
+    {"tag": "Transformation · Healthcare", "title": "~$150M cost improvement, Fortune-500 provider",
+     "situation": "A Fortune-500 healthcare client was structurally too tall and too costly to run.",
+     "action": "Ran an operating-model assessment — spans, layers, benchmarking and process — to size the takeout.",
+     "result": "Identified ~$150M of cost improvement with a phased, self-funding roadmap.",
+     "role": "Led the org-redesign and benchmarking analysis."},
+    {"tag": "Analytics · Provider/Payer", "title": "+15% profitability via payer-contract analysis",
+     "situation": "A large provider couldn't see which payer contracts made or lost money.",
+     "action": "Analyzed encounter volumes, service/patient mix and reimbursement rates at the contract level.",
+     "result": "Drove a ~15% profitability improvement and stronger payer relationships.",
+     "role": "Led the contract-profitability analytics."},
+    {"tag": "GTM · MedTech", "title": "~$0.5B growth unlocked for a $10B MedTech client",
+     "situation": "A $10B MedTech client's commercial structure was misaligned to its growth opportunity.",
+     "action": "Re-architected roles, territories and responsibilities against value and workload.",
+     "result": "Unlocked ~$0.5B of growth through a redesigned commercial structure.",
+     "role": "Designed the commercial structure & deployment."},
+]
+
+# What people say — REPLACE these placeholders with real, attributed recommendations
+# (e.g. pulled from LinkedIn). Set to [] to hide the section until you have real ones.
+RECOMMENDATIONS = [
+    {"quote": "Aman pairs sharp commercial strategy with the rigor to actually quantify it — he reframed the problem and the team rallied behind a plan we could defend to the board.",
+     "author": "Senior Partner, EY-Parthenon", "note": "‹ replace with a verified recommendation ›"},
+    {"quote": "One of the most effective strategy leaders I've worked with — structured, data-grounded, and relentless about the decision the client actually has to make.",
+     "author": "VP Commercial, Global MedTech client", "note": "‹ replace with a verified recommendation ›"},
+]
+
+# Thought leadership / external validation
+INSIGHTS = [
+    {"title": "EY.com author profile — Aman Bhatnagar", "desc": "My published insights & bylines on EY.com",
+     "url": "https://www.ey.com/en_us/people/aman-bhatnagar"},
+    {"title": "EY Pulse of the MedTech Industry", "desc": "Flagship MedTech report I've contributed to",
+     "url": "https://www.ey.com/en_us/life-sciences/pulse-of-medtech-industry-outlook"},
+    {"title": "Articles on the CGM market & AI-driven care", "desc": "Commercial models & AI in MedTech (EY.com)",
+     "url": "https://www.ey.com/en_us/people/aman-bhatnagar"},
 ]
 
 # section -> list of (icon, name, desc, sector, page_file or None)

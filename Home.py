@@ -1,8 +1,12 @@
 import streamlit as st
 import urllib.parse as _u
+from pathlib import Path
 from lib.theme import inject, glass, img_b64
-from lib.profile import PROFILE, HIGHLIGHTS
+from lib.profile import PROFILE, HIGHLIGHTS, LEADERSHIP, CASE_STUDIES, RECOMMENDATIONS, INSIGHTS
 from lib.nav import NAV, build_pages
+
+_RESUME = Path(__file__).resolve().parent / "assets" / PROFILE["resume_file"]
+RESUME_BYTES = _RESUME.read_bytes() if _RESUME.exists() else None
 
 GMAIL_LINK = ("https://mail.google.com/mail/?view=cm&fs=1&to=" + PROFILE["email"]
               + "&su=" + _u.quote("Let's work together")
@@ -30,6 +34,7 @@ def render_portfolio():
             <p class="hero-tag">{PROFILE['tagline']}</p>
             <p class="hero-headline">{PROFILE['headline']}</p>
             <p class="hero-summary">{PROFILE['summary']}</p>
+            <p style="color:#9beaf6;font-size:.86rem;margin:.6rem 0 0;border-left:2px solid #22D3EE;padding-left:.6rem">{PROFILE['positioning']}</p>
             <div style="margin-top:1rem">
               <a class="cta-btn" href="#apps-tools">Explore the apps ↓</a>
               <span style="display:inline-block;width:.6rem"></span>
@@ -37,11 +42,30 @@ def render_portfolio():
             </div>
             """, unsafe_allow_html=True)
 
+    # ---------- Quick links: résumé / LinkedIn / EY / video ----------
+    bcols = st.columns(4)
+    if RESUME_BYTES:
+        bcols[0].download_button("⬇ Résumé (PDF)", RESUME_BYTES, file_name=PROFILE["resume_file"],
+                                 mime="application/pdf", use_container_width=True)
+    bcols[1].link_button("in · LinkedIn", PROFILE["linkedin"], use_container_width=True)
+    bcols[2].link_button("EY profile", PROFILE["ey_profile"], use_container_width=True)
+    if PROFILE.get("video_url"):
+        bcols[3].link_button("▶ 60-sec intro", PROFILE["video_url"], use_container_width=True)
+
     # ---------- Metrics ----------
     st.markdown('<div style="height:.6rem"></div>', unsafe_allow_html=True)
     cols = st.columns(len(PROFILE["metrics"]))
     for c, (v, l) in zip(cols, PROFILE["metrics"]):
         c.markdown(f'<div class="glass metric"><div class="v">{v}</div><div class="l">{l}</div></div>', unsafe_allow_html=True)
+
+    # ---------- Leadership & capability ----------
+    st.markdown('<div class="sec-h">Leadership & capability</div>', unsafe_allow_html=True)
+    lcols = st.columns(len(LEADERSHIP))
+    for c, (icon, head, sub) in zip(lcols, LEADERSHIP):
+        with c:
+            glass(f'<div class="ic">{icon}</div>'
+                  f'<div style="font-family:Space Grotesk;font-weight:600;color:#fff;font-size:.92rem;margin:.3rem 0 .15rem">{head}</div>'
+                  f'<div style="color:#aab4d6;font-size:.78rem;line-height:1.4">{sub}</div>')
 
     # ---------- Skills ----------
     pills = "".join(f'<span class="pill">{s}</span>' for s in PROFILE["skills"])
@@ -56,6 +80,20 @@ def render_portfolio():
                 glass(f'<div class="hl"><div class="ic">{icon}</div>'
                       f'<div class="t">{title}</div><div class="d">{desc}</div>'
                       f'<div class="src" style="margin-top:.5rem">{src}</div></div>')
+
+    # ---------- Case studies ----------
+    st.markdown('<div class="sec-h">Case studies</div>', unsafe_allow_html=True)
+    st.caption("Selected engagements — anonymized. Situation → Action → Result → my role.")
+    for i in range(0, len(CASE_STUDIES), 2):
+        cols = st.columns(2)
+        for c, cs in zip(cols, CASE_STUDIES[i:i+2]):
+            with c:
+                glass(f'<span class="pill pill-hc">{cs["tag"]}</span>'
+                      f'<div style="font-family:Space Grotesk;font-weight:600;color:#fff;font-size:1.02rem;margin:.45rem 0 .35rem">{cs["title"]}</div>'
+                      f'<div style="color:#9AA6CC;font-size:.82rem;margin:.15rem 0"><b style="color:#c4b5ff">Situation.</b> {cs["situation"]}</div>'
+                      f'<div style="color:#9AA6CC;font-size:.82rem;margin:.15rem 0"><b style="color:#c4b5ff">Action.</b> {cs["action"]}</div>'
+                      f'<div style="color:#cdd6f5;font-size:.82rem;margin:.15rem 0"><b style="color:#22D3EE">Result.</b> {cs["result"]}</div>'
+                      f'<div style="color:#7e88a8;font-size:.76rem;margin-top:.35rem">{cs["role"]}</div>')
 
     # ---------- How I work ----------
     st.markdown('<div class="sec-h">How I work</div>', unsafe_allow_html=True)
