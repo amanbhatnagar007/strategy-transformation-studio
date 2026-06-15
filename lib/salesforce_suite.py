@@ -26,8 +26,14 @@ def demo_universe(n=1500, seed=7):
     return rows
 
 
-def segment(df: pd.DataFrame, a_min: int = 8, b_min: int = 5):
-    """Add decile (1-10) from potential if absent, and tier A/B/C using decile cutoffs."""
+SPECIALIST_SPECS = {"Endocrinology", "Diabetology", "Nephrology", "Cardiology"}
+SEG_SCHEMES = ["Decile (potential)", "Access-adjusted"]
+TEAM_MODES = ["Single national team", "By specialty (Specialty vs Primary Care)", "By region"]
+
+
+def segment(df: pd.DataFrame, a_min: int = 8, b_min: int = 5, scheme: str = "Decile (potential)"):
+    """Add decile (1-10) from potential if absent, and tier A/B/C using decile cutoffs.
+    'Access-adjusted' scheme down-tiers HCPs with Low/No-see access (harder to cover profitably)."""
     out = df.copy()
     if "decile" not in out.columns:
         try:
@@ -38,7 +44,20 @@ def segment(df: pd.DataFrame, a_min: int = 8, b_min: int = 5):
     out["decile"] = out["decile"].astype(int)
     out["tier"] = np.where(out["decile"] >= a_min, "A — High",
                            np.where(out["decile"] >= b_min, "B — Medium", "C — Low"))
+    if scheme == "Access-adjusted" and "access" in out.columns:
+        down = {"A — High": "B — Medium", "B — Medium": "C — Low", "C — Low": "C — Low"}
+        hard = out["access"].isin(["Low", "No-see"])
+        out.loc[hard, "tier"] = out.loc[hard, "tier"].map(down)
     return out
+
+
+def assign_teams(df: pd.DataFrame, mode: str):
+    """Partition the universe into sales-force teams. Returns a Series of team names."""
+    if mode == TEAM_MODES[1] and "specialty" in df.columns:
+        return np.where(df["specialty"].isin(SPECIALIST_SPECS), "Specialty Care", "Primary Care")
+    if mode == TEAM_MODES[2] and "geo" in df.columns:
+        return df["geo"].astype(str)
+    return np.array(["National"] * len(df))
 
 
 # Default reach (% of tier to target) and frequency (calls/HCP/year)
