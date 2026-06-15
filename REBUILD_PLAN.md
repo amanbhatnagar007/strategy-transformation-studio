@@ -72,10 +72,25 @@ Convention: identifier is always REQUIRED. Optional columns unlock extra feature
 - **Phase A — ✅ DONE:** extended `lib/uploads.py` (required/optional) + `lib/actions.py` + built **1B Sales Force Design & IC Suite** (`pages/26`) with **context-aware stage sidebar** (per-step controls + `locked_panel` showing upstream params). Pattern: `st.sidebar.radio` stage selector + `st.session_state` param dict so values persist across steps.
 - **Phase B — ✅ DONE:** built **4A HCP Engagement & Churn Suite** (`pages/27`, NPI-keyed ML scoring + tiered action lists + omni-channel) and **4B Payer & Reimbursement Suite** (`pages/28`, CPT-level contract profitability + Medicare Advantage). Both use the stage-sidebar pattern. Lowered `churn_model` intercept to -1.6 (base churn ~31%, AUC ~0.84) for realistic demo risk.
 - **TESTING NOTE:** AppTest stops at `st.page_link` (url_pathname KeyError) — so to test page BODIES, monkeypatch `streamlit.page_link = lambda *a,**k: None` BEFORE AppTest, then check `at.exception` (no filtering needed). This caught real bugs (duplicate plotly_chart IDs → add `key=`; itertuples on cols with spaces → use iterrows).
-- **Phase C:** finish Section 1 — **1A GTM & Market-Entry** and **1C Pricing & Business Model Lab**; then **4C Market Access & Sizing**.
-- **Phase D:** Section 2 — **2A, 2B, 2C**.
-- **Phase E:** Section 3 — **3A, 3B, 3C**.
-- **Phase F:** Section 5 — **5A, 5B, 5C**; then restructure Home `CATALOG` to the final 15, archive the superseded old `pages/1..25` into `legacy_pages/` (outside `pages/` so the sidebar is clean), final polish + redeploy.
+### REVISED roadmap (after user feedback: clean sidebar + richer suites)
+Two new cross-cutting requirements drive the re-plan:
+1. **Sidebar must show only the sections + their 2–3 suites** (subsections live INSIDE each suite via the stage radio). Today Streamlit auto-lists all 28 `pages/*.py` — wrong. Fix: adopt **`st.navigation` / `st.Page`** in `Home.py` (the router); it disables auto-discovery, so only the suites we register appear, grouped by section. Legacy individual pages stay on disk (reused for merging) but are NOT registered → hidden.
+2. **Richer suite capability** (apply the THINKING to every suite, not just Sales Force): support **multiple entities** (e.g. add another segmentation scheme; add another sales-force team; multiple scenarios/org units/deals) and **org-chart visuals**. New shared helper `lib/orgchart.py` renders org charts as **DOT strings via `st.graphviz_chart`** (renders client-side — NO extra dependency / no system Graphviz binary).
+
+- **Phase C0 — Navigation & IA overhaul (DO FIRST; fixes the sidebar now):** convert `Home.py` to an `st.navigation` router. Sidebar = `Home` + 5 sections, each with exactly its **3 suite slots**. For slots whose suite is built → point to the suite; for not-yet-built slots → interim-point to the single best existing legacy page (keeps tools working) until that suite is built. Portfolio landing becomes the default page. Net: sidebar drops from 28 → ~16 clean entries grouped by section.
+- **Phase C1 — Sales Force Suite v2 (reference for "rich" suites):** add `lib/orgchart.py`; enhance `pages/26` to support **multiple sales-force teams** (add/remove; e.g. Primary-Care vs Specialty), **multiple segmentation schemes** (define & compare), and an **org-chart** of the resulting structure (VP → regions → districts → reps), plus a combined roll-up.
+- **Phase D — finish Section 1 + 4C:** 1A GTM & Market-Entry, 1C Pricing & Business Model Lab, 4C Market Access & Sizing. (4A, 4B done.) Multi-scenario where relevant.
+- **Phase E — Section 2 (M&A):** 2A Synergy & Deal Value, 2B Target Screener (multi-target), 2C Integration & Separation (uses org charts for Day-1 / carve-out org).
+- **Phase F — Section 3 (Transformation):** 3A Cost & Org Redesign (org-chart before/after de-layering), 3B OM Benchmark, 3C Value Creation (multi-initiative/scenario).
+- **Phase G — Section 5 (AI):** 5A Agent, 5B Strategy Toolkit, 5C Trends.
+- **Phase H — Final cleanup:** archive superseded `pages/1..25` into `legacy/` (outside `pages/`), confirm nav = final 15 suites, polish + redeploy.
+
+### Cross-cutting capabilities every suite should have
+1. Context-aware **stage sidebar** (radio → per-step controls; `locked_panel` for upstream linked params; `st.session_state` param dict).
+2. **Identifier-keyed uploads** (`lib/uploads.py`, required vs optional, demo toggle).
+3. **Tiered action plan** with downloadable list including the identifier (`lib/actions.py`).
+4. **Multi-entity / multi-scenario** support where it makes sense (add team / segmentation / scenario / deal / org unit).
+5. **Org-chart & comparison visuals** where relevant (`lib/orgchart.py`).
 
 ## How to verify (every phase)
 Use Streamlit's AppTest (curl gives false 200s — it serves the same shell for any route):
