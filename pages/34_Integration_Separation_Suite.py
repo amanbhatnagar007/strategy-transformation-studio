@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.ma_suite import (WORKSTREAMS, WS_DEFAULTS, day1_readiness, carveout, separation_org_dot)
 
 st.set_page_config(page_title="Integration & Separation Suite", page_icon="🗂️", layout="wide")
@@ -10,6 +11,7 @@ page_header("🗂️ Integration & Separation Suite",
             "Plan Day-1 commercial readiness, size carve-out stranded cost and TSAs, and map the separation org — "
             "the discipline behind a $3B business separation that went market-ready in 9 months.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("integration-separation")
 
 P = st.session_state.setdefault("intsep_params", dict(
     {f"ws_{ws}": WS_DEFAULTS[ws] for ws in WORKSTREAMS},

@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.synergy_logic import estimate_synergies, synergy_summary
 from lib.uploads import ColumnSchema, Col, data_input
 from lib.ma_suite import planned_increments, track, CURVES
@@ -12,6 +13,7 @@ page_header("🔗 Synergy & Deal Value Suite",
             "Size revenue and cost synergies, phase them to run-rate, test value against the purchase price, and "
             "track capture vs plan — the analysis behind $100M+ of identified synergies on real transactions.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("synergy-deal")
 
 P = st.session_state.setdefault("syn_params", {
     "acq_rev": 4000, "tgt_rev": 1200, "deal_value": 2200, "integration_cost": 120,

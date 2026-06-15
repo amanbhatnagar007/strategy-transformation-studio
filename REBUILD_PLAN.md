@@ -82,9 +82,9 @@ Two new cross-cutting requirements drive the re-plan:
 - **APPLY TO ALL REMAINING SUITES:** multi-entity (teams/scenarios/segments), compare views, and org charts where relevant; keep stage-sidebar + identifier uploads + tiered actions.
 - **Phase D — ✅ DONE:** 1A GTM & Market-Entry (`pages/29`), 1C Pricing & Business Model Lab (`pages/30`), 4C Market Access & Sizing (`pages/31`) — all stage-sidebar suites reusing `gtm_logic`/`gtm_data`, `pricing_logic`+`bizmodel_logic`, inline sizing+forecast. Also added a **collapsible section nav** (sidebar): `st.navigation(..., position="hidden")` + custom `st.sidebar.expander` per section with `st.page_link(page_obj)` inside; active section auto-expanded. `nav.py` built flags flipped for these 3.
 - **Phase E — ✅ DONE:** 2A Synergy & Deal Value (`pages/32`, reuses `synergy_logic` + capture tracking), 2B M&A Target Screener (`pages/33`, upload + weighted scorecard + portfolio map), 2C Integration & Separation (`pages/34`, Day-1 readiness + carve-out + **separation org chart**). Shared logic in `lib/ma_suite.py`. nav.py flags flipped. 11/15 suites built.
-- **Phase F — Section 3 (Transformation):** 3A Cost & Org Redesign (org-chart before/after de-layering), 3B OM Benchmark, 3C Value Creation (multi-initiative/scenario).
-- **Phase G — Section 5 (AI):** 5A Agent, 5B Strategy Toolkit, 5C Trends.
-- **Phase H — Final cleanup:** archive superseded `pages/1..25` into `legacy/` (outside `pages/`), confirm nav = final 15 suites, polish + redeploy.
+- **Phase F — ✅ DONE:** 3A Cost & Org Redesign (`pages/35`, **before/after de-layering org charts** via `orgchart.delayer_org_dot`), 3B Operating Model Benchmark (`pages/36`), 3C Value Creation (`pages/37`, EBITDA bridge + initiative roadmap upload). Reuses `cost_logic`.
+- **Phase G — ✅ DONE:** 5B Strategy Toolkit (`pages/38`, merges issue tree + scenario/tornado + SCQA storyline). 5A Agent & 5C Trends already live. **ALL 15 SUITES BUILT.**
+- **Phase H — remaining (optional polish):** legacy `pages/1..25` are already hidden by `st.navigation` (only the 15 suites are registered), so the sidebar is clean. Outstanding tidy-up: move the superseded legacy page files into `legacy/` (outside `pages/`) to declutter the repo, plus any final visual polish + redeploy. Note: Cloud Python version (use 3.13) — see requirements note above.
 
 ### Cross-cutting capabilities every suite should have
 1. Context-aware **stage sidebar** (radio → per-step controls; `locked_panel` for upstream linked params; `st.session_state` param dict).

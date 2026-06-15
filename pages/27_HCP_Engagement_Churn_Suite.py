@@ -4,6 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.uploads import ColumnSchema, Col, data_input
 from lib.churn_model import train, FEATURES, LABELS
 from lib.hcp_suite import (demo_panel, score_panel, risk_tier, optimize_mix, DEFAULT_CHANNELS)
@@ -13,6 +14,7 @@ page_header("🩺 HCP Engagement & Churn Suite",
             "Predict which prescribers (by NPI) are at risk of reducing volume, turn the scores into an action "
             "plan by risk tier, and optimize the omni-channel mix that re-engages them.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("hcp-engagement")
 
 @st.cache_resource(show_spinner="Training the churn model…")
 def get_model():

@@ -55,8 +55,8 @@ KB = [
      "reimbursement. I co-authored ZS's 2025 MedTech Trends point of view on exactly these themes."),
     ("Who is Aman Bhatnagar?",
      "Aman is a Director at EY-Parthenon with 11+ years across Strategy, GTM, M&A and Transformation — majority in "
-     "Lifesciences & Healthcare (MedTech, Payer/PBM, providers) with selective cross-sector work. He's delivered ~$1B "
-     "in cumulative client impact, led 100+ engagements, and mentored 150+ professionals. Previously a Decision "
+     "Lifesciences & Healthcare (MedTech, Payer/PBM, providers) with selective cross-sector work. He's created ~$500M "
+     "of value for clients, led 100+ engagements, and mentored 150+ professionals. Previously a Decision "
      "Analytics Consultant at ZS Associates."),
     ("How do you size a sales force / design territories?",
      "I size the force to the work, not the other way round. Start from the account universe and the call plan each "

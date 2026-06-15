@@ -4,6 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.uploads import ColumnSchema, Col, data_input
 from lib.orgchart import field_org_dot, org_counts
 from lib.salesforce_suite import (demo_universe, segment, assign_teams, target, size_force,
@@ -14,6 +15,7 @@ page_header("🧭 Sales Force Design & IC Suite",
             "End-to-end commercial design from one upload: segment the universe (compare schemes), set targeting, "
             "size one or more sales teams, see the org chart, design incentives, and export an actionable call plan.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("sales-force")
 
 # ---------------- Upload ----------------
 schema = ColumnSchema([

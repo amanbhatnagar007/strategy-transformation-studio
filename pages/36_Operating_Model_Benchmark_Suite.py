@@ -3,12 +3,14 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 
 st.set_page_config(page_title="Operating Model Benchmark", page_icon="📐", layout="wide")
 page_header("📐 Operating Model Benchmark",
             "Benchmark an operating model against best-practice ranges — SG&A intensity, span, layers, "
             "productivity and support ratios — and see where the structural gaps are.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("om-benchmark")
 
 P = st.session_state.setdefault("omb_params", {
     "sga_pct": 22.0, "span": 5.0, "layers": 9, "rev_per_fte": 240, "support_ratio": 28.0})

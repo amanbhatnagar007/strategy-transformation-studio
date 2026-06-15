@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.cost_logic import cost_savings, cost_summary
 from lib.orgchart import delayer_org_dot
 
@@ -12,6 +13,7 @@ page_header("🛠️ Cost & Org Redesign Suite",
             "Quantify cost takeout by lever, model the spans-and-layers de-layering, and see the before/after "
             "org — the approach behind ~$150M of identified cost improvement on a Fortune-500 client.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("cost-org")
 
 P = st.session_state.setdefault("cor_params", {
     "cost_base": 900, "headcount": 6000, "avg_cost": 95, "footprint_cost": 80,

@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.uploads import ColumnSchema, Col, data_input
 from lib.ma_suite import TARGET_CRITERIA, demo_targets, score_targets
 
@@ -11,6 +12,7 @@ page_header("🔎 M&A Target Screener",
             "Upload a target universe and rank it on a weighted scorecard — strategic fit, financials, synergy, "
             "integration risk and market position — then map the portfolio to pick where to focus.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("target-screener")
 
 schema = ColumnSchema([
     Col("target", "text", "Target name — REQUIRED to action the shortlist", "Alpha Diagnostics", required=True),

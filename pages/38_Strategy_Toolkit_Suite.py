@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 
 st.set_page_config(page_title="Strategy Toolkit", page_icon="💡", layout="wide")
 page_header("💡 Strategy Toolkit",
@@ -11,6 +12,7 @@ page_header("💡 Strategy Toolkit",
             "case with scenario & sensitivity analysis, and assemble a board-ready storyline. It structures your "
             "thinking — it does not invent facts.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("strategy-toolkit")
 
 TREES = {
     "Grow revenue": {

@@ -8,11 +8,11 @@ PROFILE = {
         "Seasoned Strategy & Business Transformation Leader with 11+ years driving growth, "
         "go-to-market excellence, and enterprise-wide transformation. 100+ high-impact engagements "
         "across Lifesciences & Healthcare (MedTech, Payer/PBM, providers) and select cross-sector work, "
-        "delivering ~$1B in cumulative client impact."
+        "creating ~$500M of value for clients."
     ),
     "email": "amanbhatnagarmrt@gmail.com",
     "phone": "+91-9811186994",
-    "headline": "I turn commercial strategy into measured impact — and I've done it to the tune of ~$1B.",
+    "headline": "I turn commercial strategy into measured value creation — ~$500M of it for clients, and counting.",
     "about": (
         "I help healthcare and lifesciences leaders answer their hardest commercial questions — "
         "how to enter a market, where to play, how to take a product to market, what an acquisition is "
@@ -37,7 +37,7 @@ PROFILE = {
     "metrics": [
         ("11+ yrs", "Experience"),
         ("100+", "Engagements"),
-        ("~$1B", "Client impact"),
+        ("~$500M", "Client value created"),
         ("150+", "Mentored"),
     ],
     "skills": ["Strategy & Operations", "GTM Strategy", "Transactions (M&A)", "Transformation",

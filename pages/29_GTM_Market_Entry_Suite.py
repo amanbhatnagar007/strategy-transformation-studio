@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.gtm_data import MARKETS, ROUTES
 from lib.gtm_logic import score_routes, prioritize_markets, business_case, exec_summary
 
@@ -12,6 +13,7 @@ page_header("🚀 GTM & Market-Entry Strategy",
             "Recommend the route-to-market, prioritize target countries by sector, and build the 5-year ROI "
             "business case — the questions a CXO asks before committing to a launch.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("gtm-market-entry")
 
 P = st.session_state.setdefault("gtm_params", {
     "product": "Next-gen CGM sensor", "sector": list(MARKETS.keys())[0], "model": "Capital / one-time",

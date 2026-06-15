@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.pricing_logic import price_corridor, demand_curve, estimate_at, entry_mode, pricing_summary
 from lib.bizmodel_logic import simulate, recommend, bm_summary, MODELS
 
@@ -11,6 +12,7 @@ page_header("🏷️ Pricing & Business Model Lab",
             "Find the viable price corridor and entry mode, then compare commercial models — capital vs "
             "subscription vs pay-per-use vs hybrid — on revenue and lifetime value.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("pricing-model")
 
 P = st.session_state.setdefault("pml_params", {
     "unit_cost": 400, "target_margin": 60, "competitor_price": 1200, "value_to_customer": 1800,

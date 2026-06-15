@@ -4,6 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.uploads import ColumnSchema, Col, data_input
 from lib.payer_suite import demo_contracts, analyze_contracts, margin_tier, medicare_value
 
@@ -12,6 +13,7 @@ page_header("💵 Payer & Reimbursement Suite",
             "Find where payer contracts make and lose money at the CPT level, build a renegotiation target list, "
             "and size Medicare Advantage value from better risk capture — the analysis behind +15% provider profitability.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("payer-reimbursement")
 
 STAGES = ["① Contract profitability", "② Medicare Advantage value"]
 st.sidebar.header("Workflow")

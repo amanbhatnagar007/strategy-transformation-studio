@@ -1,6 +1,7 @@
 import streamlit as st
 from lib.theme import page_header, glass
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.agent_kb import answer_offline, answer_with_key, SUGGESTED
 
 st.set_page_config(page_title="Aman's AI Agent", page_icon="🤖", layout="wide")
@@ -8,6 +9,7 @@ page_header("🤖 Aman's AI Agent",
             "Ask about strategy, GTM, M&A, transformation or healthcare — answered in my frameworks. "
             "Works fully offline (no key). Optionally paste an Anthropic key for richer, generated answers.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("ai-agent")
 
 with st.sidebar:
     st.header("Mode")

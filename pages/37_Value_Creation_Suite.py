@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from lib.theme import page_header, glass, locked_panel
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.uploads import ColumnSchema, Col, data_input
 
 st.set_page_config(page_title="Value Creation Planning", page_icon="🗺️", layout="wide")
@@ -10,6 +11,7 @@ page_header("🗺️ Value Creation Planning",
             "Walk EBITDA from today to a target lever by lever, then prioritize and sequence the initiatives "
             "that deliver it — impact vs effort, with cumulative value over time.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("value-creation")
 
 P = st.session_state.setdefault("vcp_params", {
     "rev": 1200, "margin_pct": 14, "price_up": 2.0, "vol_growth": 4.0, "cogs_red": 3.0, "sga_red": 2.5, "mix_up": 1.0})

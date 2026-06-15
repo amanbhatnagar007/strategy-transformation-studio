@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from lib.theme import page_header, glass
 from lib.profile import PROFILE
+from lib.frameworks import framework_banner
 from lib.trends_data import TRENDS, THEMES
 
 st.set_page_config(page_title="2025 MedTech Trends", page_icon="📰", layout="wide")
@@ -10,6 +11,7 @@ page_header("📰 2025 MedTech Trends Explorer",
             "A curated point of view on where MedTech is heading — and the commercial implication of each shift. "
             "Filter by theme and time horizon.")
 st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
+framework_banner("medtech-trends")
 
 with st.sidebar:
     st.header("Filter")
