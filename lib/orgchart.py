@@ -36,6 +36,34 @@ def field_org_dot(team_structures, span_dm=8, dm_per_rm=5):
     return "\n".join(lines)
 
 
+def delayer_org_dot(layers, headcount, accent="#8B6CFF", title=""):
+    """A management pyramid with `layers` levels (CEO → front line), counts derived from
+    an implied span = headcount^(1/layers). For before/after de-layering comparison."""
+    span_eff = headcount ** (1 / max(layers, 1))
+    fill = "#1b2138" if accent == "#8B6CFF" else "#143042"
+    lines = ['digraph G {', 'graph [bgcolor="transparent", rankdir=TB, nodesep=0.25, ranksep=0.4];',
+             f'node [shape=box, style=filled, fontcolor="#EAF0FF", color="{accent}", '
+             f'fillcolor="{fill}", fontname="Helvetica", fontsize=11];', 'edge [color="#5b6488"];']
+    if title:
+        lines.append(f'labelloc="t"; fontcolor="#cdd6f5"; label="{title}";')
+    prev = None
+    for k in range(layers):
+        cnt = max(1, round(span_eff ** k))
+        node = f"L{k}"
+        if k == 0:
+            label = "CEO / Top"
+        elif k == layers - 1:
+            label = f"Front line\\n~{cnt:,}"
+        else:
+            label = f"Layer {k+1}\\n~{cnt:,} roles"
+        lines.append(f'{node} [label="{label}"];')
+        if prev:
+            lines.append(f'{prev} -> {node};')
+        prev = node
+    lines.append('}')
+    return "\n".join(lines)
+
+
 def org_counts(reps, span_dm=8, dm_per_rm=5):
     dm = math.ceil(reps / span_dm) if reps else 0
     rm = math.ceil(dm / dm_per_rm) if dm else 0

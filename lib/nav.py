@@ -26,11 +26,11 @@ NAV = {
     ],
     "Transformation & Value Creation": [
         {"icon": "🛠️", "title": "Cost & Org Redesign Suite", "desc": "Cost takeout, spans & layers, org chart",
-         "sector": "LS&HC", "file": "pages/3_Cost_Takeout_Analyzer.py", "url": "cost-org", "built": False},
+         "sector": "LS&HC", "file": "pages/35_Cost_Org_Redesign_Suite.py", "url": "cost-org", "built": True},
         {"icon": "📐", "title": "Operating Model Benchmark", "desc": "Diagnostic vs best-practice benchmarks",
-         "sector": "LS&HC", "file": "pages/15_Operating_Model_Benchmark.py", "url": "om-benchmark", "built": False},
+         "sector": "LS&HC", "file": "pages/36_Operating_Model_Benchmark_Suite.py", "url": "om-benchmark", "built": True},
         {"icon": "🗺️", "title": "Value Creation Planning", "desc": "EBITDA bridge, initiative roadmap",
-         "sector": "LS&HC", "file": "pages/14_EBITDA_Bridge.py", "url": "value-creation", "built": False},
+         "sector": "LS&HC", "file": "pages/37_Value_Creation_Suite.py", "url": "value-creation", "built": True},
     ],
     "Lifesciences & Healthcare Analytics": [
         {"icon": "🩺", "title": "HCP Engagement & Churn Suite", "desc": "NPI panel → risk, action plan, omni-channel",
@@ -44,7 +44,7 @@ NAV = {
         {"icon": "🤖", "title": "Aman's AI Agent", "desc": "Ask in my frameworks (offline + optional key)",
          "sector": "LS&HC", "file": "pages/5_Aman_AI_Agent.py", "url": "ai-agent", "built": True},
         {"icon": "💡", "title": "Strategy Toolkit", "desc": "Issue trees, scenarios, exec storyline",
-         "sector": "Cross", "file": "pages/23_Hypothesis_Generator.py", "url": "strategy-toolkit", "built": False},
+         "sector": "Cross", "file": "pages/38_Strategy_Toolkit_Suite.py", "url": "strategy-toolkit", "built": True},
         {"icon": "📰", "title": "MedTech Trends & Insights", "desc": "Curated 2025 MedTech POV",
          "sector": "LS&HC", "file": "pages/22_MedTech_Trends.py", "url": "medtech-trends", "built": True},
     ],
