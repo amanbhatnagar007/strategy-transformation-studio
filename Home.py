@@ -129,5 +129,20 @@ def render_portfolio():
     st.caption(f"© {PROFILE['name']} · {PROFILE['email']} · {PROFILE['phone']} · Built with Streamlit")
 
 
-# ---------- Router ----------
-st.navigation(build_pages(render_portfolio)).run()
+# ---------- Router with collapsible section nav ----------
+pages = build_pages(render_portfolio)
+pg = st.navigation(pages, position="hidden")
+with st.sidebar:
+    st.page_link(pages[""][0], label="Studio Home", icon="🏠")
+    st.markdown('<div style="color:#8b95ba;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;'
+                'margin:.5rem 0 .2rem">Suites</div>', unsafe_allow_html=True)
+    active_url = getattr(pg, "url_path", None)
+    for section, plist in pages.items():
+        if not section:
+            continue
+        is_active = any(getattr(p, "url_path", "") == active_url for p in plist)
+        with st.expander(section, expanded=is_active):
+            for p in plist:
+                st.page_link(p)
+    st.divider()
+pg.run()
