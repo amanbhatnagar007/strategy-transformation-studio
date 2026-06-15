@@ -9,7 +9,7 @@ st.set_page_config(page_title="2025 MedTech Trends", page_icon="📰", layout="w
 page_header("📰 2025 MedTech Trends Explorer",
             "A curated point of view on where MedTech is heading — and the commercial implication of each shift. "
             "Filter by theme and time horizon.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Filter")

@@ -8,7 +8,7 @@ st.set_page_config(page_title="Medicare Advantage Estimator", page_icon="🏥", 
 page_header("🏥 Medicare Advantage Estimator",
             "Estimate the value upside from better risk-score (RAF) capture, care-management investment and "
             "MLR improvement in a Medicare Advantage book — current vs improved revenue and margin.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 ACCENT, ACCENT2, GREEN, RED = "#8B6CFF", "#22D3EE", "#34D399", "#EF4444"
 

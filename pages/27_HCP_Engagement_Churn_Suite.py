@@ -12,7 +12,7 @@ st.set_page_config(page_title="HCP Engagement & Churn Suite", page_icon="🩺", 
 page_header("🩺 HCP Engagement & Churn Suite",
             "Predict which prescribers (by NPI) are at risk of reducing volume, turn the scores into an action "
             "plan by risk tier, and optimize the omni-channel mix that re-engages them.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 @st.cache_resource(show_spinner="Training the churn model…")
 def get_model():

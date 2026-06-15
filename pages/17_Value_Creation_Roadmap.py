@@ -9,7 +9,7 @@ st.set_page_config(page_title="Value-Creation Roadmap", page_icon="🗺️", lay
 page_header("🗺️ Value-Creation Roadmap",
             "Prioritize and sequence transformation initiatives on an impact-vs-effort matrix, then phase "
             "them into a roadmap with cumulative value over time.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 DEMO = [
     {"initiative": "Procurement renegotiation", "value_m": 18, "effort": 3, "months_to_impact": 4},

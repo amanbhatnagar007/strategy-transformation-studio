@@ -8,7 +8,7 @@ st.set_page_config(page_title="Scenario Simulator", page_icon="🎚️", layout=
 page_header("🎚️ Scenario & Sensitivity Simulator",
             "Stress-test any business case: define a base outcome and its drivers, then see which assumptions move "
             "the answer most (tornado) and how downside/upside scenarios play out. All math, no guessing.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 st.caption("Outcome is modeled as Base × ∏(1 + driver swing). Set each driver's low/high % swing and its weight.")
 

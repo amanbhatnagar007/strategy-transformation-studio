@@ -10,7 +10,7 @@ st.set_page_config(page_title="HCP Churn Predictor", page_icon="🩺", layout="w
 page_header("🩺 HCP Churn Predictor",
             "A real machine-learning model that predicts which healthcare professionals are likely to reduce "
             "prescribing — so commercial teams can intervene early. Trained live on a synthetic dataset.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 @st.cache_resource(show_spinner="Training the model…")
 def get_model():

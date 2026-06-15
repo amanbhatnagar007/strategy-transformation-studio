@@ -8,7 +8,7 @@ st.set_page_config(page_title="Operating Model Benchmark", page_icon="📐", lay
 page_header("📐 Operating Model Benchmark",
             "Benchmark an operating model against best-practice ranges — SG&A intensity, span of control, "
             "layers, productivity and support ratios — and see where the structural gaps are.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Your operating model")

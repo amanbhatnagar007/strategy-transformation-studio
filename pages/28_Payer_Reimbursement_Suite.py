@@ -11,7 +11,7 @@ st.set_page_config(page_title="Payer & Reimbursement Suite", page_icon="💵", l
 page_header("💵 Payer & Reimbursement Suite",
             "Find where payer contracts make and lose money at the CPT level, build a renegotiation target list, "
             "and size Medicare Advantage value from better risk capture — the analysis behind +15% provider profitability.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 STAGES = ["① Contract profitability", "② Medicare Advantage value"]
 st.sidebar.header("Workflow")

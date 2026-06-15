@@ -9,7 +9,7 @@ st.set_page_config(page_title="Deal Value Tracker", page_icon="📈", layout="wi
 page_header("📈 Deal Value Tracker",
             "Track synergy capture against plan over time — cumulative planned vs actual, run-rate "
             "attainment, variance and a projected full-year landing — so value-creation stays on the rails.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Synergy plan")

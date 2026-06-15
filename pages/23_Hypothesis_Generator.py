@@ -7,7 +7,7 @@ st.set_page_config(page_title="Hypothesis Generator", page_icon="💡", layout="
 page_header("💡 Strategy Hypothesis Generator",
             "Turn a fuzzy business question into a MECE issue tree — the structured hypotheses an MBB team would "
             "test first. Pick the problem type and tailor it to your situation.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 # Deterministic issue-tree templates by problem archetype (no fabricated facts —
 # these are the analytical questions to investigate).

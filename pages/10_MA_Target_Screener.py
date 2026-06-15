@@ -9,7 +9,7 @@ st.set_page_config(page_title="M&A Target Screener", page_icon="🔎", layout="w
 page_header("🔎 M&A Target Screener",
             "Rank acquisition targets on a weighted scorecard — strategic fit, financial health, synergy "
             "potential, integration risk and market position — to focus diligence on the deals that matter.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 CRITERIA = {
     "strategic_fit": "Strategic fit",

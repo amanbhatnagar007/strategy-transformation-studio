@@ -10,7 +10,7 @@ st.set_page_config(page_title="Omnichannel Optimizer", page_icon="📡", layout=
 page_header("📡 Omnichannel Optimizer",
             "Optimize the promotional channel mix across field, digital and rep-triggered touches. "
             "A saturating response model reallocates budget to where the next dollar buys the most conversions.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 ACCENT, ACCENT2 = "#8B6CFF", "#22D3EE"
 

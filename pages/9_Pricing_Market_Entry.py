@@ -10,7 +10,7 @@ st.set_page_config(page_title="Pricing & Market-Entry Planner", page_icon="🏷�
 page_header("🏷️ Pricing & Market-Entry Planner",
             "Set a defensible price corridor — cost-plus floor, value ceiling, competitor reference — and "
             "pick the right entry mode for a new market, with elasticity-based volume and revenue.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Cost & margin")

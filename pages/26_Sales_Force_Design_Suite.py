@@ -12,7 +12,7 @@ st.set_page_config(page_title="Sales Force Design & IC Suite", page_icon="🧭",
 page_header("🧭 Sales Force Design & IC Suite",
             "End-to-end commercial design from one upload: segment the HCP universe, set targeting, size the force "
             "(workload build-up), align territories, and design the incentive plan — with an actionable target list by tier.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 # ---------------- Upload (required NPI + universe) ----------------
 schema = ColumnSchema([

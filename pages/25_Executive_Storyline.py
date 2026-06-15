@@ -6,7 +6,7 @@ st.set_page_config(page_title="Executive Storyline", page_icon="📝", layout="w
 page_header("📝 Executive Storyline Builder",
             "Turn your raw findings into a board-ready narrative using SCQA and the Pyramid Principle — "
             "governing message on top, grouped supporting arguments beneath. It structures your input; it doesn't invent.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Inputs (your facts)")

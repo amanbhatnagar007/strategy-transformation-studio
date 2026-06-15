@@ -10,7 +10,7 @@ st.set_page_config(page_title="Sales Force Sizer", page_icon="🧭", layout="wid
 page_header("🧭 Sales Force Sizer",
             "Size the field force and design territories from the bottom up — turn an account base and a "
             "call plan into required reps, coverage gaps and workload balance.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Account base by tier")

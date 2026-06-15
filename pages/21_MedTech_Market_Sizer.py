@@ -9,7 +9,7 @@ st.set_page_config(page_title="MedTech Market Sizer", page_icon="📏", layout="
 page_header("📏 MedTech Market Sizer",
             "Size TAM / SAM / SOM for a MedTech category (e.g. CGM). Walk from target population through "
             "prevalence, diagnosis, treatment penetration and achievable share to a defensible revenue opportunity.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 ACCENT, ACCENT2 = "#8B6CFF", "#22D3EE"
 

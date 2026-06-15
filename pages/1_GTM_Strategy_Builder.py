@@ -11,7 +11,7 @@ st.set_page_config(page_title="GTM Strategy Builder", page_icon="🚀", layout="
 page_header("🚀 GTM & Route-to-Market Strategy Builder",
             "A CXO-grade decision tool: recommends your go-to-market route, prioritizes target countries by "
             "sector, and builds a 5-year ROI business case — all from a few inputs.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 # ===================== INPUTS =====================
 with st.sidebar:

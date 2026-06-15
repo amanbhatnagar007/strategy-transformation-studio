@@ -9,7 +9,7 @@ st.set_page_config(page_title="Cost Takeout Analyzer", page_icon="🛠️", layo
 page_header("🛠️ Cost Takeout & Org Redesign Analyzer",
             "Quantify a cost-transformation: savings by lever, the org de-layering opportunity, and a "
             "phased EBITDA bridge — the approach behind ~$150M of identified cost improvement on a Fortune-500 client.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Cost base")

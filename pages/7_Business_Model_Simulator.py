@@ -9,7 +9,7 @@ st.set_page_config(page_title="Business Model Simulator", page_icon="📊", layo
 page_header("📊 Business Model Simulator",
             "Compare capital, subscription, pay-per-use and hybrid commercial models on revenue ramp, "
             "lifetime value and durability — the analysis behind pay-per-use models now ~10% of a top-20 MedTech's revenue.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Demand")

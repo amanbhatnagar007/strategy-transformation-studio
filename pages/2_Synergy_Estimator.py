@@ -9,7 +9,7 @@ st.set_page_config(page_title="M&A Synergy Estimator", page_icon="🔗", layout=
 page_header("🔗 M&A Synergy Estimator",
             "Size revenue and cost synergies for a deal, phase them to run-rate, and test value creation "
             "against the purchase price — the analysis behind $100M+ of identified synergies on real transactions.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Targets")

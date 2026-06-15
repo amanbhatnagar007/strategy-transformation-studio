@@ -8,7 +8,7 @@ st.set_page_config(page_title="EBITDA Improvement Bridge", page_icon="💹", lay
 page_header("💹 EBITDA Improvement Bridge",
             "Walk from today's EBITDA to a target, lever by lever — price, volume, COGS, SG&A and mix — "
             "and see the margin uplift the value-creation plan delivers.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Starting position")

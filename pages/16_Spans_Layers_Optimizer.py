@@ -8,7 +8,7 @@ st.set_page_config(page_title="Spans & Layers Optimizer", page_icon="🪜", layo
 page_header("🪜 Spans & Layers Optimizer",
             "Simulate a de-layering: widen spans of control, remove management layers, and size the "
             "annualized cost saving — with a realization haircut applied so the number stays honest.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 REALIZATION = 0.55  # not every removed role converts to cash; some redeploy
 

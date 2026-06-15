@@ -8,7 +8,7 @@ st.set_page_config(page_title="Carve-out Readiness", page_icon="✂️", layout=
 page_header("✂️ Carve-out Readiness Analyzer",
             "Size the separation challenge for a divestiture or carve-out — stranded cost, one-time "
             "separation cost, the TSA exit path to standalone, and an entanglement-driven complexity rating.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Carve-out scope")

@@ -9,7 +9,7 @@ st.set_page_config(page_title="Payer Contract Analyzer", page_icon="💵", layou
 page_header("💵 Payer Contract Analyzer",
             "Analyze provider profitability across payer contracts. Margin per contract, loss-makers, and "
             "renegotiation targets — the encounter-and-reimbursement lens behind smarter payer decisions.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 ACCENT, ACCENT2, RED = "#8B6CFF", "#22D3EE", "#EF4444"
 

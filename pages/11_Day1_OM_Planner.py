@@ -9,7 +9,7 @@ page_header("🗂️ Day-1 Commercial Operating Model Planner",
             "Track Day-1 readiness across the commercial operating model — workstream by workstream — with "
             "RAG status, a weighted readiness score and a go-live confidence call. The discipline behind a "
             "$3B business separation that went market-ready in 9 months.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 # workstream -> (default completion %, relative weight)
 WORKSTREAMS = {

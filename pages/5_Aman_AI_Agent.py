@@ -7,7 +7,7 @@ st.set_page_config(page_title="Aman's AI Agent", page_icon="🤖", layout="wide"
 page_header("🤖 Aman's AI Agent",
             "Ask about strategy, GTM, M&A, transformation or healthcare — answered in my frameworks. "
             "Works fully offline (no key). Optionally paste an Anthropic key for richer, generated answers.")
-st.page_link("Home.py", label="← Back to Studio")
+st.markdown('<a href="/" target="_self" style="color:#22D3EE;text-decoration:none;font-size:.9rem">← Back to Studio</a>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("Mode")
