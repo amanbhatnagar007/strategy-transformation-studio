@@ -12,9 +12,9 @@ NAV = {
         {"icon": "🧭", "title": "Sales Force Design & IC Suite", "desc": "Upload HCPs → segment, target, size, align, IC",
          "sector": "LS&HC", "file": "pages/26_Sales_Force_Design_Suite.py", "url": "sales-force", "built": True},
         {"icon": "🚀", "title": "GTM & Market-Entry", "desc": "Route-to-market, market prioritization, ROI",
-         "sector": "LS&HC", "file": "pages/1_GTM_Strategy_Builder.py", "url": "gtm-market-entry", "built": False},
+         "sector": "LS&HC", "file": "pages/29_GTM_Market_Entry_Suite.py", "url": "gtm-market-entry", "built": True},
         {"icon": "🏷️", "title": "Pricing & Business Model Lab", "desc": "Pricing corridor, business-model economics",
-         "sector": "Cross", "file": "pages/7_Business_Model_Simulator.py", "url": "pricing-model", "built": False},
+         "sector": "Cross", "file": "pages/30_Pricing_Business_Model_Lab.py", "url": "pricing-model", "built": True},
     ],
     "Transactions & M&A": [
         {"icon": "🔗", "title": "Synergy & Deal Value Suite", "desc": "Synergies, phasing, capture tracking",
@@ -38,7 +38,7 @@ NAV = {
         {"icon": "💵", "title": "Payer & Reimbursement Suite", "desc": "Contract profitability + Medicare Advantage",
          "sector": "LS&HC", "file": "pages/28_Payer_Reimbursement_Suite.py", "url": "payer-reimbursement", "built": True},
         {"icon": "📏", "title": "Market Access & Sizing", "desc": "TAM / SAM / SOM + forecast",
-         "sector": "LS&HC", "file": "pages/21_MedTech_Market_Sizer.py", "url": "market-access", "built": False},
+         "sector": "LS&HC", "file": "pages/31_Market_Access_Sizing.py", "url": "market-access", "built": True},
     ],
     "AI Decision Tools & Thought Leadership": [
         {"icon": "🤖", "title": "Aman's AI Agent", "desc": "Ask in my frameworks (offline + optional key)",
