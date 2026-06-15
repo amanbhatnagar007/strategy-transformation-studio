@@ -18,11 +18,11 @@ NAV = {
     ],
     "Transactions & M&A": [
         {"icon": "🔗", "title": "Synergy & Deal Value Suite", "desc": "Synergies, phasing, capture tracking",
-         "sector": "LS&HC", "file": "pages/2_Synergy_Estimator.py", "url": "synergy-deal", "built": False},
+         "sector": "LS&HC", "file": "pages/32_Synergy_Deal_Value_Suite.py", "url": "synergy-deal", "built": True},
         {"icon": "🔎", "title": "M&A Target Screener", "desc": "Weighted scorecard, ranking, portfolio map",
-         "sector": "LS&HC", "file": "pages/10_MA_Target_Screener.py", "url": "target-screener", "built": False},
+         "sector": "LS&HC", "file": "pages/33_MA_Target_Screener_Suite.py", "url": "target-screener", "built": True},
         {"icon": "🗂️", "title": "Integration & Separation Suite", "desc": "Day-1 readiness, carve-out, TSA",
-         "sector": "Cross", "file": "pages/11_Day1_OM_Planner.py", "url": "integration-separation", "built": False},
+         "sector": "Cross", "file": "pages/34_Integration_Separation_Suite.py", "url": "integration-separation", "built": True},
     ],
     "Transformation & Value Creation": [
         {"icon": "🛠️", "title": "Cost & Org Redesign Suite", "desc": "Cost takeout, spans & layers, org chart",
