@@ -78,10 +78,10 @@ html, body, [class*="css"]  { font-family:'Inter',sans-serif; }
 .pill-x  { border-color: rgba(139,108,255,.55); color:#c4b5ff; background:rgba(139,108,255,.08); }
 
 /* Metrics */
-.metric { text-align:center; }
-.metric .v { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700;
+.metric { text-align:center; display:flex; flex-direction:column; justify-content:center; min-height:92px; }
+.metric .v { font-family:'Space Grotesk',sans-serif; font-size:1.8rem; font-weight:700; line-height:1.1;
   background: linear-gradient(90deg,#fff,#b9a6ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.metric .l { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.2rem; }
+.metric .l { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-top:.3rem; }
 
 /* Section heading */
 .sec-h { font-family:'Space Grotesk',sans-serif; font-size:1.25rem; font-weight:600; color:#fff;

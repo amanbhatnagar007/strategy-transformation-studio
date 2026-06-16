@@ -42,17 +42,20 @@ def render_portfolio():
             """, unsafe_allow_html=True)
 
     # ---------- Quick links: résumé / LinkedIn / EY / video ----------
-    bcols = st.columns(4)
+    st.markdown('<div style="height:1.4rem"></div>', unsafe_allow_html=True)
+    n_links = (1 if RESUME_BYTES else 0) + 2 + (1 if PROFILE.get("video_url") else 0)
+    bcols = st.columns(n_links)
+    idx = 0
     if RESUME_BYTES:
-        bcols[0].download_button("⬇ Résumé (PDF)", RESUME_BYTES, file_name=PROFILE["resume_file"],
-                                 mime="application/pdf", use_container_width=True)
-    bcols[1].link_button("in · LinkedIn", PROFILE["linkedin"], use_container_width=True)
-    bcols[2].link_button("EY profile", PROFILE["ey_profile"], use_container_width=True)
+        bcols[idx].download_button("⬇ Résumé (PDF)", RESUME_BYTES, file_name=PROFILE["resume_file"],
+                                   mime="application/pdf", use_container_width=True); idx += 1
+    bcols[idx].link_button("in · LinkedIn", PROFILE["linkedin"], use_container_width=True); idx += 1
+    bcols[idx].link_button("EY profile", PROFILE["ey_profile"], use_container_width=True); idx += 1
     if PROFILE.get("video_url"):
-        bcols[3].link_button("▶ 60-sec intro", PROFILE["video_url"], use_container_width=True)
+        bcols[idx].link_button("▶ 60-sec intro", PROFILE["video_url"], use_container_width=True)
 
     # ---------- Metrics ----------
-    st.markdown('<div style="height:.6rem"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="height:2rem"></div>', unsafe_allow_html=True)
     cols = st.columns(len(PROFILE["metrics"]))
     for c, (v, l) in zip(cols, PROFILE["metrics"]):
         c.markdown(f'<div class="glass metric"><div class="v">{v}</div><div class="l">{l}</div></div>', unsafe_allow_html=True)
