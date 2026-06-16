@@ -13,7 +13,6 @@ PROFILE = {
     "email": "amanbhatnagarmrt@gmail.com",
     "phone": "+91-9811186994",
     "headline": "I turn commercial strategy into measured value creation — ~$500M of it for clients, and counting.",
-    "positioning": "Open to Director / VP Strategy & Transformation roles in Lifesciences, Healthcare & MedTech — consulting, in-house strategy, or PE value creation.",
     "linkedin": "https://in.linkedin.com/in/amanbhatnagarstrategyconsultant",
     "ey_profile": "https://www.ey.com/en_us/people/aman-bhatnagar",
     "video_url": "",  # paste a Loom/YouTube intro URL to show a "Watch 60-sec intro" button

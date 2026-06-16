@@ -34,7 +34,6 @@ def render_portfolio():
             <p class="hero-tag">{PROFILE['tagline']}</p>
             <p class="hero-headline">{PROFILE['headline']}</p>
             <p class="hero-summary">{PROFILE['summary']}</p>
-            <p style="color:#9beaf6;font-size:.86rem;margin:.6rem 0 0;border-left:2px solid #22D3EE;padding-left:.6rem">{PROFILE['positioning']}</p>
             <div style="margin-top:1rem">
               <a class="cta-btn" href="#apps-tools">Explore the apps ↓</a>
               <span style="display:inline-block;width:.6rem"></span>
