@@ -127,6 +127,32 @@ def render_portfolio():
         st.markdown('<div class="sec-h">Recognition</div>', unsafe_allow_html=True)
         glass("".join(f'<div class="bullet">{r}</div>' for r in PROFILE["recognition"]))
 
+    # ---------- Recommendations ----------
+    if RECOMMENDATIONS:
+        st.markdown('<div class="sec-h">What people say</div>', unsafe_allow_html=True)
+        rcols = st.columns(len(RECOMMENDATIONS))
+        for c, rec in zip(rcols, RECOMMENDATIONS):
+            with c:
+                note = (f'<div style="color:#7e88a8;font-size:.7rem;margin-top:.45rem">{rec["note"]}</div>'
+                        if rec.get("note") else "")
+                glass(f'<div style="font-size:1.6rem;color:#8B6CFF;line-height:.6">“</div>'
+                      f'<div style="font-family:var(--font-serif),Georgia,serif;color:#dfe5fb;font-size:.92rem;line-height:1.55;font-style:italic">{rec["quote"]}</div>'
+                      f'<div style="color:#c4b5ff;font-size:.82rem;font-weight:600;margin-top:.5rem">— {rec["author"]}</div>{note}')
+
+    # ---------- Insights / thought leadership ----------
+    st.markdown('<div class="sec-h">Insights & thought leadership</div>', unsafe_allow_html=True)
+    st.caption("Published points of view and reports on EY.com.")
+    icols = st.columns(len(INSIGHTS))
+    for c, ins in zip(icols, INSIGHTS):
+        with c:
+            st.markdown(
+                f'<a class="cardlink" target="_blank" href="{ins["url"]}">'
+                f'<div class="glass app-card"><div class="ic">📄</div>'
+                f'<div class="nm" style="font-size:.9rem">{ins["title"]}</div>'
+                f'<div class="ds">{ins["desc"]}</div>'
+                f'<div style="color:#22D3EE;font-size:.68rem;margin-top:.35rem;font-weight:600">Read on EY.com ↗</div></div></a>',
+                unsafe_allow_html=True)
+
     # ---------- App launcher (from NAV: 5 sections x 3 suites) ----------
     st.markdown('<div class="sec-h" id="apps-tools">Apps & Tools</div>', unsafe_allow_html=True)
     st.caption("15 suites across 5 sections. Each suite has subsections inside — segment, size, score, plan. "
